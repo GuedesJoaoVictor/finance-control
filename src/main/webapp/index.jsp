@@ -2,7 +2,7 @@
     <body>
         <h2>Register</h2>
 
-        <form>
+        <form action="/finance-control/user" method="post">
             <label for="name">Nome: </label>
             <input id="name" type="text" name="name" required>
             <label for="email">Email: </label>
