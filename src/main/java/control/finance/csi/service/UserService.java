@@ -18,7 +18,7 @@ public class UserService {
         String password = req.getParameter("password");
 
         if (cpf == null || name == null || email == null || password == null) {
-            String message = "Todos os campos devem ser preenchidos!" ;
+            String message = "Todos os campos devem ser preenchidos!";
             req.setAttribute("message", message);
             RequestDispatcher rd = req.getRequestDispatcher("/user.jsp");
             try {
@@ -43,7 +43,7 @@ public class UserService {
         String cpf = req.getParameter("cpf");
 
         if (cpf == null) {
-            String message = "CPF não informado!" ;
+            String message = "CPF não informado!";
             System.out.println(UserDAO.findAll());
             req.setAttribute("message", message);
             RequestDispatcher rd = req.getRequestDispatcher("/user.jsp");
@@ -66,7 +66,7 @@ public class UserService {
         String cpf = req.getParameter("cpf");
 
         if (cpf == null) {
-            String message = "CPF não informado!" ;
+            String message = "CPF não informado!";
             req.setAttribute("message", message);
             RequestDispatcher rd = req.getRequestDispatcher("/user.jsp");
             try {
