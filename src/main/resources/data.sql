@@ -1,0 +1,1 @@
+create table users(cpf varchar(14) not null primary key, name varchar(255) not null, email varchar(155) not null, password varchar(255) not null);

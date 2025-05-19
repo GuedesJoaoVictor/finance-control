@@ -44,6 +44,7 @@ public class UserService {
 
         if (cpf == null) {
             String message = "CPF não informado!" ;
+            System.out.println(UserDAO.findAll());
             req.setAttribute("message", message);
             RequestDispatcher rd = req.getRequestDispatcher("/user.jsp");
             rd.forward(req, resp);
