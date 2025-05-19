@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class UserService {
 
-    public static void create(HttpServletRequest req, HttpServletResponse resp) {
+    public void create(HttpServletRequest req, HttpServletResponse resp) {
         String cpf = req.getParameter("cpf");
         String name = req.getParameter("name");
         String email = req.getParameter("email");
@@ -24,7 +24,7 @@ public class UserService {
             try {
                 rd.forward(req, resp);
             } catch (ServletException | IOException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
 
@@ -39,7 +39,7 @@ public class UserService {
         }
     }
 
-    public static void findById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void findById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String cpf = req.getParameter("cpf");
 
         if (cpf == null) {
@@ -61,7 +61,7 @@ public class UserService {
         }
     }
 
-    public static void delete(HttpServletRequest req, HttpServletResponse resp) {
+    public void delete(HttpServletRequest req, HttpServletResponse resp) {
         String cpf = req.getParameter("cpf");
 
         if (cpf == null) {
@@ -71,7 +71,7 @@ public class UserService {
             try {
                 rd.forward(req, resp);
             } catch (ServletException | IOException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
 

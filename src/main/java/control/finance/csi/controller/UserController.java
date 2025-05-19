@@ -13,13 +13,15 @@ import java.io.IOException;
 @WebServlet("/user")
 public class UserController extends HttpServlet {
 
+    private final UserService userService = new UserService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService.findById(req, resp);
+        userService.findById(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService.create(req, resp);
+        userService.create(req, resp);
     }
 }
