@@ -19,7 +19,7 @@
         </form>
         <div>
           Já possui conta?
-          <a href="/finance-control/login">Clique aqui.</a>
+          <a href="./WEB-INF/views/login.jsp">Clique aqui.</a>
         </div>
     </body>
 </html>
