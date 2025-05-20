@@ -25,7 +25,6 @@ public class LoginService {
         }
         User user = UserDAO.findByEmail(email);
 
-
         if(user != null && user.getEmail().equals(email) && user.getPassword().equals(password)) {
             req.getSession().setAttribute("user", user);
             RequestDispatcher rd = req.getRequestDispatcher("/home.jsp");
@@ -47,6 +46,4 @@ public class LoginService {
             System.out.println(e.getMessage());
         }
     }
-
-
 }
