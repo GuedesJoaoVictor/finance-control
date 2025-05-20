@@ -51,7 +51,7 @@ public class UserService {
             return;
         }
 
-        User user = UserDAO.findById(cpf);
+        User user = UserDAO.findByCpf(cpf);
 
         req.setAttribute("user", user);
         RequestDispatcher rd = req.getRequestDispatcher("/user.jsp");

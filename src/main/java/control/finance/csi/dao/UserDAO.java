@@ -5,7 +5,6 @@ import control.finance.csi.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class UserDAO {
@@ -51,7 +50,7 @@ public class UserDAO {
         }
     }
 
-    public static User findById(String cpf) {
+    public static User findByCpf(String cpf) {
         try {
             Connection connection = ConectarBD.getConnectionPostgres();
             PreparedStatement stmt = connection.prepareStatement("select * from users where cpf = ?");
@@ -63,6 +62,27 @@ public class UserDAO {
                 return new User(rs.getString("cpf"), rs.getString("name"), rs.getString("email"), rs.getString("password"));
             }
 
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    public static User findByEmail(String email) {
+        try {
+            Connection connection = ConectarBD.getConnectionPostgres();
+            PreparedStatement stmt = connection.prepareStatement("select * from users where email = ?");
+            stmt.setString(1, email);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new User(rs.getString("cpf"), rs.getString("name"), rs.getString("email"), rs.getString("password"));
+            }
+
+            return null;
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
