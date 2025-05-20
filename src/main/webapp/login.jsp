@@ -14,5 +14,6 @@
         <input type="password" name="password" id="password">
         <button type="submit">Entrar</button>
     </form>
+    <a href="./index.jsp">Registrar</a>
 </body>
 </html>

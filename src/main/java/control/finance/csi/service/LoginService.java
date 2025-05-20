@@ -27,7 +27,7 @@ public class LoginService {
 
         if(user != null && user.getEmail().equals(email) && user.getPassword().equals(password)) {
             req.getSession().setAttribute("user", user);
-            RequestDispatcher rd = req.getRequestDispatcher("/home.jsp");
+            RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
             try {
                 rd.forward(req, resp);
             }

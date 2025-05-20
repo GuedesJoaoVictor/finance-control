@@ -1,6 +1,5 @@
 package control.finance.csi.controller;
 
-import control.finance.csi.model.User;
 import control.finance.csi.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
