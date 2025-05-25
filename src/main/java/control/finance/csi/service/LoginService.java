@@ -1,7 +1,11 @@
 package control.finance.csi.service;
 
+import java.util.ArrayList;
+
+import control.finance.csi.dao.UserBankDAO;
 import control.finance.csi.dao.UserDAO;
 import control.finance.csi.model.User;
+import control.finance.csi.model.UserBank;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,7 +30,10 @@ public class LoginService {
         User user = UserDAO.findByEmail(email);
 
         if(user != null && user.getEmail().equals(email) && user.getPassword().equals(password)) {
+            // Usuario autenticdo com sucesso
             req.getSession().setAttribute("user", user);
+            ArrayList<UserBank> userBanks = UserBankDAO.findAllByCpf(user.getCpf());
+            req.getSession().setAttribute("userBanks", userBanks);
             RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
             try {
                 rd.forward(req, resp);
