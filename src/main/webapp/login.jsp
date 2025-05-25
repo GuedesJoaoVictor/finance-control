@@ -7,6 +7,9 @@
 </head>
 <body>
     <h1>Login</h1>
+    <c:if test="${not empty message}">
+        <p>${message}</p>
+    </c:if>
     <form action="/finance-control/login" method="post">
         <label for="email">Email:</label>
         <input type="text" name="email" id="email">
