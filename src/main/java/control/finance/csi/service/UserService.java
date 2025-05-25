@@ -20,7 +20,7 @@ public class UserService {
         if (cpf == null || name == null || email == null || password == null) {
             String message = "Todos os campos devem ser preenchidos!";
             req.setAttribute("message", message);
-            RequestDispatcher rd = req.getRequestDispatcher("/user.jsp");
+            RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
             try {
                 rd.forward(req, resp);
             } catch (ServletException | IOException e) {
@@ -31,7 +31,7 @@ public class UserService {
         User user = UserDAO.create(new User(cpf, name, email, password));
 
         req.setAttribute("user", user);
-        RequestDispatcher rd = req.getRequestDispatcher("/user.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/login.jsp");
         try {
             rd.forward(req, resp);
         } catch (ServletException | IOException e) {
@@ -46,7 +46,7 @@ public class UserService {
             String message = "CPF não informado!";
             System.out.println(UserDAO.findAll());
             req.setAttribute("message", message);
-            RequestDispatcher rd = req.getRequestDispatcher("/user.jsp");
+            RequestDispatcher rd = req.getRequestDispatcher("/login.jsp");
             rd.forward(req, resp);
             return;
         }
@@ -54,7 +54,7 @@ public class UserService {
         User user = UserDAO.findByCpf(cpf);
 
         req.setAttribute("user", user);
-        RequestDispatcher rd = req.getRequestDispatcher("/user.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/login.jsp");
         try {
             rd.forward(req, resp);
         } catch (ServletException | IOException e) {
@@ -68,7 +68,7 @@ public class UserService {
         if (cpf == null) {
             String message = "CPF não informado!";
             req.setAttribute("message", message);
-            RequestDispatcher rd = req.getRequestDispatcher("/user.jsp");
+            RequestDispatcher rd = req.getRequestDispatcher("/login.jsp");
             try {
                 rd.forward(req, resp);
             } catch (ServletException | IOException e) {
@@ -78,7 +78,7 @@ public class UserService {
 
         UserDAO.delete(cpf);
 
-        RequestDispatcher rd = req.getRequestDispatcher("/user.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/login.jsp");
         try {
             rd.forward(req, resp);
         } catch (ServletException | IOException e) {
