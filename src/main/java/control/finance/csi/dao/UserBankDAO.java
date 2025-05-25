@@ -9,13 +9,12 @@ import java.util.ArrayList;
 
 public class UserBankDAO {
 
-    public static ArrayList<UserBank> findAll(String user_cpf, int bank_id) {
+    public static ArrayList<UserBank> findAllByCpf(String user_cpf) {
         ArrayList<UserBank> userBanks = new ArrayList<>();
         try {
             Connection connection = ConectarBD.getConnectionPostgres();
-            PreparedStatement stmt = connection.prepareStatement("select * from user_bank where user_cpf = ? and bank_id = ?");
+            PreparedStatement stmt = connection.prepareStatement("select * from user_bank where user_cpf = ?");
             stmt.setString(1, user_cpf);
-            stmt.setInt(2, bank_id);
 
             ResultSet rs = stmt.executeQuery();
 
