@@ -7,7 +7,9 @@
 </head>
 <body>
     <h1>Vincular Banco</h1>
-
+    <c:if test="${user}">
+        ${user.getName()}
+    </c:if>
     <form>
         <h2>Bancos disponiveis:</h2>
         <label for="bank">Bancos:</label>
