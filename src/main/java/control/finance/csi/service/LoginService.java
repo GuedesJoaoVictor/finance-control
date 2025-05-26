@@ -34,6 +34,7 @@ public class LoginService {
             req.getSession().setAttribute("user", user);
             ArrayList<UserBank> userBanks = UserBankDAO.findAllByCpf(user.getCpf());
             req.getSession().setAttribute("userBanks", userBanks);
+            // Mandar também além dos bancos, as transações feitas. Tanto as bonificações quanto os descontos.
             RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
             try {
                 rd.forward(req, resp);
