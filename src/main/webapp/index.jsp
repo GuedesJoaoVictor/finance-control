@@ -19,7 +19,7 @@
         </form>
         <div>
           Já possui conta?
-          <a href="login.jsp">Clique aqui.</a>
+          <a href="./login.jsp">Clique aqui.</a>
         </div>
     </body>
 </html>

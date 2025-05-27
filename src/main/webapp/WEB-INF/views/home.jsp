@@ -9,7 +9,7 @@
 <c:if test="${not empty user}">
     <h1>Olá ${user.getName()}!</h1>
     <button>
-        <a href="./vinculate-bank.jsp">Adicionar banco</a>
+        <a href="/finance-control/vinculate-bank.jsp">Adicionar banco</a>
     </button>
     <p>Bem vindo ao controle de financas!</p>
     <c:if test="${userBanks == []}">
