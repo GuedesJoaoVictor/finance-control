@@ -6,6 +6,7 @@ import control.finance.csi.dao.UserDAO;
 import control.finance.csi.model.Bank;
 import control.finance.csi.model.User;
 import control.finance.csi.model.UserBank;
+import control.finance.csi.util.GetSessionAtributtes;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -48,12 +49,9 @@ public class VinculateBankService {
         // Vinculando o usuario ao banco no banco de dados
         UserBankDAO.create(cpf, bank, nameAccount, initialBalance);
 
-        User user = UserDAO.findByCpf(cpf);
-        ArrayList<UserBank> userBanks = UserBankDAO.findAllByCpf(cpf);
         String message = "Conta vinculada com sucesso!";
 
-        req.setAttribute("user", user);
-        req.setAttribute("userBanks", userBanks);
+        GetSessionAtributtes.setAttributtes(req);
         req.setAttribute("message", message);
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
         try {

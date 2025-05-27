@@ -1,8 +1,6 @@
 package control.finance.csi.controller;
 
-import control.finance.csi.dao.UserBankDAO;
-import control.finance.csi.model.User;
-import control.finance.csi.model.UserBank;
+import control.finance.csi.util.GetSessionAtributtes;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 @WebServlet("/home")
 public class HomeController extends HttpServlet {
@@ -21,10 +18,7 @@ public class HomeController extends HttpServlet {
              req.getRequestDispatcher("/login.jsp").forward(req, resp);
              return;
         }
-        User user = (User) req.getSession().getAttribute("user");
-        ArrayList<UserBank> userBanks = UserBankDAO.findAllByCpf(user.getCpf());
-        req.setAttribute("user", user);
-        req.setAttribute("userBanks", userBanks);
+        GetSessionAtributtes.setAttributtes(req);
         req.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(req, resp);
     }
 }
