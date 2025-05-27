@@ -27,5 +27,9 @@
     </form>
 
     <a href="/finance-control/home">Home</a>
+
+    <c:if test="${not empty message}">
+        <p>${message}</p>
+    </c:if>
 </body>
 </html>

@@ -31,6 +31,18 @@ public class VinculateBankService {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+            return;
+        }
+
+        if (userIsAlreadyLinked(cpf, bank)) {
+           req.setAttribute("message", "Conta já vinculada!");
+            RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/vinculate-bank.jsp");
+            try {
+                rd.forward(req, resp);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            return;
         }
 
         // Vinculando o usuario ao banco no banco de dados
@@ -49,5 +61,21 @@ public class VinculateBankService {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private boolean userIsAlreadyLinked(String cpf, String bankName) {
+        ArrayList<UserBank> userBanks = UserBankDAO.findAllByCpf(cpf);
+        ArrayList<Bank> banks = BankDAO.findAll();
+
+        if(!userBanks.isEmpty()) {
+            for(UserBank userBank : userBanks) {
+                for(Bank bank : banks) {
+                    if(userBank.getBank_id() == bank.getId() && bank.getName().equals(bankName)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
