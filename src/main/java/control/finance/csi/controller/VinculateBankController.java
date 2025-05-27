@@ -1,5 +1,6 @@
 package control.finance.csi.controller;
 
+import control.finance.csi.service.VinculateBankService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,17 +13,11 @@ import java.io.IOException;
 @WebServlet("/vinculate-bank")
 public class VinculateBankController extends HttpServlet {
 
+    private final VinculateBankService vinculateBankService = new VinculateBankService();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String cpf = req.getParameter("cpf");
-        String bank = req.getParameter("bank");
-        String nameAccount = req.getParameter("name");
-        String initialBalance = req.getParameter("initialBalance");
-
-        System.out.println("Cpf: " + cpf);
-        System.out.println("Bank: " + bank);
-        System.out.println("Name Account: " + nameAccount);
-        System.out.println("Initial Balance: " + initialBalance);
+        vinculateBankService.vinculateBank(req, resp);
     }
 
     @Override

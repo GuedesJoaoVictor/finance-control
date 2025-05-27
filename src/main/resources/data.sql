@@ -15,3 +15,11 @@ insert into users(cpf, name, email, password) values ('05265295046', 'Guedes', '
 insert into bank(name, type) values ('Banco do Brasil', 'Conta Corrente');
 
 insert into user_bank(name, user_cpf, bank_id, initial_balance) values ('Conta Corrente Banco do Brasil', '05265295046', 1, 1000.00);
+
+insert into bank(name, type) values ('NuBank', 'Conta Corrente'),
+                                    ('Itaú', 'Conta Corrente'),
+                                    ('Santander', 'Conta Corrente'),
+                                    ('Bradesco', 'Conta Corrente'),
+                                    ('Caixa', 'Conta Corrente');
+
+truncate table user_bank restart identity;

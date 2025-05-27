@@ -7,9 +7,6 @@
 </head>
 <body>
     <h1>Vincular Banco</h1>
-    <c:if test="${not empty user}">
-        ${user.getName()}
-    </c:if>
     <form method="post" action="/finance-control/vinculate-bank">
         <h2>Bancos disponiveis:</h2>
         <label for="bank">Bancos:</label>
@@ -24,9 +21,11 @@
         <label for="name">Nome da Conta: </label>
         <input type="text" name="name" id="name" placeholder="Ex: Conta Corrente Itaú" required>
         <label for="initialBalance">Valor Inicial: </label>
-        <input type="number" name="initialBalance" id="initialBalance" min="0" placeholder="Ex: 1000" required>
+        <input type="number" name="initialBalance" id="initialBalance" step="0.01" min="0" placeholder="Ex: 1000.00" required>
         <input type="hidden" name="cpf" value="${user.getCpf()}">
         <button type="submit">Enviar</button>
     </form>
+
+    <a href="/finance-control/home">Home</a>
 </body>
 </html>

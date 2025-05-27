@@ -1,0 +1,53 @@
+package control.finance.csi.service;
+
+import control.finance.csi.dao.BankDAO;
+import control.finance.csi.dao.UserBankDAO;
+import control.finance.csi.dao.UserDAO;
+import control.finance.csi.model.Bank;
+import control.finance.csi.model.User;
+import control.finance.csi.model.UserBank;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
+public class VinculateBankService {
+
+    public void vinculateBank(HttpServletRequest req, HttpServletResponse resp) {
+        String cpf = req.getParameter("cpf");
+        String bank = req.getParameter("bank");
+        String nameAccount = req.getParameter("name");
+        System.out.println(req.getParameter("initialBalance"));
+        BigDecimal initialBalance = BigDecimal.valueOf(Double.parseDouble(req.getParameter("initialBalance")));
+
+        if (cpf == null || bank == null || nameAccount == null || initialBalance == null) {
+            String message = "Todos os campos devem ser preenchidos!";
+            req.setAttribute("message", message);
+            RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/vinculate-bank.jsp");
+            try {
+                rd.forward(req, resp);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        // Vinculando o usuario ao banco no banco de dados
+        UserBankDAO.create(cpf, bank, nameAccount, initialBalance);
+
+        User user = UserDAO.findByCpf(cpf);
+        ArrayList<UserBank> userBanks = UserBankDAO.findAllByCpf(cpf);
+        String message = "Conta vinculada com sucesso!";
+
+        req.setAttribute("user", user);
+        req.setAttribute("userBanks", userBanks);
+        req.setAttribute("message", message);
+        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
+        try {
+            rd.forward(req, resp);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
