@@ -59,4 +59,17 @@ public class UserBankDAO {
         }
         return null;
     }
+
+    public static boolean delete(int userBankId) {
+        try {
+            Connection connection = ConectarBD.getConnectionPostgres();
+            PreparedStatement stmt = connection.prepareStatement("delete from user_bank where id = ?");
+            stmt.setInt(1, userBankId);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 }

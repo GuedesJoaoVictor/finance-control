@@ -25,4 +25,9 @@ public class VinculateBankController extends HttpServlet {
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/vinculate-bank.jsp");
         rd.forward(req, resp);
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        vinculateBankService.unvinculateBank(req, resp);
+    }
 }

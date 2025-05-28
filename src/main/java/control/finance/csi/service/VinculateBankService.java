@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class VinculateBankService {
@@ -75,5 +76,21 @@ public class VinculateBankService {
             }
         }
         return false;
+    }
+
+    public void unvinculateBank(HttpServletRequest req, HttpServletResponse resp) {
+        try {
+            int id = req.getParameter("id") == null ? 0 : Integer.parseInt(req.getParameter("id"));
+            UserBankDAO.delete(id);
+            String message = "Conta deletada com sucesso!";
+            GetSessionAtributtes.setAttributtes(req);
+            req.setAttribute("message", message);
+            RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
+            rd.forward(req, resp);
+            return;
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

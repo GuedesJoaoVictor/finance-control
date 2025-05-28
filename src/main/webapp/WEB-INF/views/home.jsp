@@ -19,10 +19,28 @@
         <h2>Suas contas:</h2>
         <ul>
             <c:forEach items="${userBanks}" var="bank">
-                <li>${bank.name} - ${bank.initial_balance}</li>
+                <li>
+                    ${bank.name} - ${bank.initial_balance}
+                    <button onclick="unlinkAccount(${bank.id})">Remover Conta</button>
+                </li>
             </c:forEach>
         </ul>
     </c:if>
 </c:if>
 </body>
+<script>
+    function unlinkAccount(id) {
+        if (confirm("Deseja realmente deletar esse usuário?")) {
+            fetch("/finance-control/vinculate-bank", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: "id=" + id
+            }).then(response => {
+                location.replace("http://localhost:8080/finance-control/home");
+            });
+        }
+    }
+</script>
 </html>
