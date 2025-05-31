@@ -1,10 +1,14 @@
 <%@ page contentType="text/html; charset=ISO-8859-1" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page isELIgnored="false" %>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Vincular Banco</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/avif" href="../../assets/finance-control-icon.avif">
+    <title>Finance Control</title>
 </head>
+
 <body>
     <h1>Vincular Banco</h1>
     <form method="post" action="/finance-control/vinculate-bank">

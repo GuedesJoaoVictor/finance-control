@@ -1,10 +1,14 @@
 <%@ page contentType="text/html; charset=ISO-8859-1" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page isELIgnored="false" %>
-<html>
+<html lang="ptt a-br">
 <head>
-    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/avif" href="../../assets/finance-control-icon.avif">
+    <title>Finance Control</title>
 </head>
+
 <body>
 <c:if test="${not empty user}">
     <h1>Olá ${user.getName()}!</h1>
@@ -20,7 +24,7 @@
         <ul>
             <c:forEach items="${userBanks}" var="bank">
                 <li>
-                    ${bank.name} - ${bank.initial_balance}
+                    <a href="/finance-control/bank-info?userBankId=${bank.id}">${bank.name}</a> - ${bank.initial_balance}
                     <button onclick="unlinkAccount(${bank.id})">Remover Conta</button>
                 </li>
             </c:forEach>

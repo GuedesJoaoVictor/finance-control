@@ -1,6 +1,7 @@
 package control.finance.csi.dao;
 
 import control.finance.csi.model.Bank;
+import control.finance.csi.model.User;
 import control.finance.csi.model.UserBank;
 
 import java.math.BigDecimal;
@@ -71,5 +72,24 @@ public class UserBankDAO {
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    public static UserBank findById(int id) {
+        try {
+            Connection connection = ConectarBD.getConnectionPostgres();
+            PreparedStatement stmt = connection.prepareStatement("select * from user_bank where id = ?");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                UserBank userBank = new UserBank(rs.getString("name"), rs.getString("user_cpf"), rs.getInt("bank_id"), rs.getBigDecimal("initial_balance"));
+                userBank.setId(rs.getInt("id"));
+                return userBank;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }
