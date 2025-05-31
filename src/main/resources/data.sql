@@ -23,3 +23,78 @@ insert into bank(name, type) values ('NuBank', 'Conta Corrente'),
                                     ('Caixa', 'Conta Corrente');
 
 truncate table user_bank restart identity;
+truncate table users restart identity;
+
+INSERT INTO users (cpf, name, email, password) VALUES
+                                                   ('144.161.644-49', 'Carlos Eduardo da Luz', 'carlos.luz@example.com', 'usuario123'),
+                                                   ('676.736.831-02', 'Marina da Silva Costa', 'marina.costa@example.com', 'usuario123'),
+                                                   ('031.903.253-83', 'João Victor Martins', 'joao.martins@example.com', 'usuario123');
+
+INSERT INTO user_bank (id, name, user_cpf, bank_id, initial_balance) VALUES
+                                                                         (1, 'Conta Banco do Brasil', '144.161.644-49', 1, 5467.89),
+                                                                         (2, 'Conta Caixa Econômica Federal', '144.161.644-49', 6, 8752.23),
+                                                                         (3, 'Conta Itaú', '144.161.644-49', 3, 3198.45),
+
+                                                                         (4, 'Conta Banco do Brasil', '676.736.831-02', 1, 6243.77),
+                                                                         (5, 'Conta Caixa Econômica Federal', '676.736.831-02', 2, 9287.11),
+                                                                         (6, 'Conta Itaú', '676.736.831-02', 3, 4723.99),
+
+                                                                         (7, 'Conta Banco do Brasil', '031.903.253-83', 1, 7622.66),
+                                                                         (8, 'Conta Caixa Econômica Federal', '031.903.253-83', 6, 8399.02),
+                                                                         (9, 'Conta Itaú', '031.903.253-83', 3, 5312.55);
+
+INSERT INTO category (id, type, name, user_cpf) VALUES
+                                                    (1, 'receita', 'Salário', NULL),
+                                                    (2, 'receita', 'Investimentos', NULL),
+                                                    (3, 'despesa', 'Alimentação', NULL),
+                                                    (4, 'despesa', 'Transporte', NULL),
+                                                    (5, 'despesa', 'Moradia', NULL);
+
+-- Para Carlos Eduardo da Luz
+INSERT INTO revenues (id, user_cpf, description, value, receipt_date, category_id) VALUES
+                                                                                       (1, '144.161.644-49', 'Receita de salário fixo', 4200.50, '2025-03-10', 1),
+                                                                                       (2, '144.161.644-49', 'Pagamento mensal recebido', 3950.00, '2025-04-10', 1),
+                                                                                       (3, '144.161.644-49', 'Dividendos de ações', 870.75, '2025-04-20', 2),
+                                                                                       (4, '144.161.644-49', 'Salário adicional', 1500.00, '2025-05-10', 1),
+                                                                                       (5, '144.161.644-49', 'Recebimento de bônus', 1000.00, '2025-05-15', 1);
+
+-- Para Marina da Silva Costa
+INSERT INTO revenues (id, user_cpf, description, value, receipt_date, category_id) VALUES
+                                                                                       (6, '676.736.831-02', 'Salário mensal', 4500.00, '2025-03-15', 1),
+                                                                                       (7, '676.736.831-02', 'Rendimento da poupança', 380.25, '2025-03-28', 2),
+                                                                                       (8, '676.736.831-02', 'Lucro de investimento', 1120.45, '2025-04-15', 2),
+                                                                                       (9, '676.736.831-02', 'Pagamento extra', 2100.00, '2025-05-10', 1),
+                                                                                       (10, '676.736.831-02', 'Renda de freelancer', 900.00, '2025-05-25', 1);
+
+-- Para João Victor Martins
+INSERT INTO revenues (id, user_cpf, description, value, receipt_date, category_id) VALUES
+                                                                                       (11, '031.903.253-83', 'Salário mensal', 4300.00, '2025-03-12', 1),
+                                                                                       (12, '031.903.253-83', 'Renda variável', 980.50, '2025-03-30', 2),
+                                                                                       (13, '031.903.253-83', 'Bônus de produtividade', 1300.00, '2025-04-12', 1),
+                                                                                       (14, '031.903.253-83', 'Comissão', 1750.00, '2025-05-05', 1),
+                                                                                       (15, '031.903.253-83', 'Dividendos de fundo', 640.20, '2025-05-20', 2);
+
+-- Para Carlos Eduardo da Luz
+INSERT INTO expenses (id, user_cpf, description, value, expense_date, category_id) VALUES
+                                                                                       (1, '144.161.644-49', 'Supermercado mensal', 650.30, '2025-03-05', 3),
+                                                                                       (2, '144.161.644-49', 'Uber para o trabalho', 150.00, '2025-03-18', 4),
+                                                                                       (3, '144.161.644-49', 'Aluguel', 1200.00, '2025-04-01', 5),
+                                                                                       (4, '144.161.644-49', 'Jantar com amigos', 230.50, '2025-04-22', 3),
+                                                                                       (5, '144.161.644-49', 'Transporte público', 180.00, '2025-05-03', 4);
+
+-- Para Marina da Silva Costa
+INSERT INTO expenses (id, user_cpf, description, value, expense_date, category_id) VALUES
+                                                                                       (6, '676.736.831-02', 'Feira orgânica', 320.10, '2025-03-09', 3),
+                                                                                       (7, '676.736.831-02', 'Manutenção do carro', 850.00, '2025-03-19', 4),
+                                                                                       (8, '676.736.831-02', 'Aluguel', 1100.00, '2025-04-01', 5),
+                                                                                       (9, '676.736.831-02', 'Restaurante japonês', 275.40, '2025-04-27', 3),
+                                                                                       (10, '676.736.831-02', 'Gasolina', 400.00, '2025-05-10', 4);
+
+-- Para João Victor Martins
+INSERT INTO expenses (id, user_cpf, description, value, expense_date, category_id) VALUES
+                                                                                       (11, '031.903.253-83', 'Mercado do mês', 780.00, '2025-03-03', 3),
+                                                                                       (12, '031.903.253-83', 'Ônibus mensal', 140.00, '2025-03-20', 4),
+                                                                                       (13, '031.903.253-83', 'Aluguel', 1300.00, '2025-04-01', 5),
+                                                                                       (14, '031.903.253-83', 'Delivery de comida', 210.75, '2025-04-25', 3),
+                                                                                       (15, '031.903.253-83', 'Combustível', 365.00, '2025-05-12', 4);
+

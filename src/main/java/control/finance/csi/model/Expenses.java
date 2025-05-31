@@ -2,16 +2,17 @@ package control.finance.csi.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Expenses {
     private int id;
     private String user_cpf;
     private String description;
     private BigDecimal value;
-    private LocalDate expense_date;
+    private Date expense_date;
     private int category_id;
 
-    public Expenses(String user_cpf, String description, BigDecimal value, LocalDate expense_date, int category_id) {
+    public Expenses(String user_cpf, String description, BigDecimal value, Date expense_date, int category_id) {
         this.user_cpf = user_cpf;
         this.description = description;
         this.value = value;
@@ -51,11 +52,11 @@ public class Expenses {
         this.value = value;
     }
 
-    public LocalDate getExpense_date() {
+    public Date getExpense_date() {
         return expense_date;
     }
 
-    public void setExpense_date(LocalDate expense_date) {
+    public void setExpense_date(Date expense_date) {
         this.expense_date = expense_date;
     }
 
