@@ -1,17 +1,17 @@
 package control.finance.csi.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Revenues {
     private int id;
     private String user_cpf;
     private String description;
     private BigDecimal value;
-    private LocalDate receipt_date;
+    private Date receipt_date;
     private int category_id;
 
-    public Revenues(String user_cpf, String description, BigDecimal value, LocalDate receipt_date, int category_id) {
+    public Revenues(String user_cpf, String description, BigDecimal value, Date receipt_date, int category_id) {
         this.user_cpf = user_cpf;
         this.description = description;
         this.value = value;
@@ -51,11 +51,11 @@ public class Revenues {
         this.value = value;
     }
 
-    public LocalDate getReceipt_date() {
+    public Date getReceipt_date() {
         return receipt_date;
     }
 
-    public void setReceipt_date(LocalDate receipt_date) {
+    public void setReceipt_date(Date receipt_date) {
         this.receipt_date = receipt_date;
     }
 
