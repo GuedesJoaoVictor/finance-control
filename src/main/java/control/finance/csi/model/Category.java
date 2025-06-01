@@ -17,14 +17,6 @@ public class Category {
         this.user_cpf = user_cpf;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getType() {
         return type;
     }
@@ -39,6 +31,22 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUser_cpf() {
+        return user_cpf;
+    }
+
+    public void setUser_cpf(String user_cpf) {
+        this.user_cpf = user_cpf;
     }
 
     @Override

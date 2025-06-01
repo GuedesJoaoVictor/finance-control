@@ -21,10 +21,7 @@ public class RevenuesController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int userBankId = Integer.parseInt(req.getParameter("userBankId"));
-
-        req.setAttribute("userBankId", userBankId);
-        req.setAttribute("user", req.getSession().getAttribute("user"));
+        revenuesService.redirectToRevenues(req, resp);
     }
 
     @Override
