@@ -20,6 +20,7 @@
                     <th>Descrição</th>
                     <th>Valor</th>
                     <th>Data</th>
+                    <th>Ação</th>
                 </tr>
             </thead>
             <c:forEach items="${revenues}" var="revenue">
@@ -33,6 +34,9 @@
                         </td>
                         <td>
                                 ${revenue.receipt_date}
+                        </td>
+                        <td>
+                            <button onclick="onClickDeleteRevenue(${revenue.id})">Remover</button>
                         </td>
                     </tr>
                 </tbody>
@@ -55,6 +59,7 @@
                     <th>Descrição</th>
                     <th>Valor</th>
                     <th>Data</th>
+                    <th>Ação</th>
                 </tr>
             </thead>
             <c:forEach items="${expenses}" var="expense">
@@ -68,6 +73,9 @@
                         </td>
                         <td>
                             ${expense.expense_date}
+                        </td>
+                        <td>
+                            <button onclick="onClickDeleteExpense(${expense.id})">Remover</button>
                         </td>
                     </tr>
                 </tbody>
@@ -87,4 +95,32 @@
       <h2>Not Found.</h2>
     </c:if>
 </body>
+<script>
+    function onClickDeleteRevenue(id) {
+        if (confirm("Realmente deseja remover essa receita?")) {
+            fetch("/finance-control/revenues", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: "id=" + id
+            }).then(response => {
+                location.replace("http://localhost:8080/finance-control/bank-info?userBankId=" + "${userBank.getId()}");
+            })
+        }
+    }
+    function onClickDeleteExpense(id) {
+        if (confirm("Realmente deseja remover esse gasto?")) {
+            fetch("/finance-control/revenues", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: "id=" + id
+            }).then(response => {
+                location.replace("http://localhost:8080/finance-control/bank-info?userBankId=" + "${userBank.getId()}");
+            })
+        }
+    }
+</script>
 </html>

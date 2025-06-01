@@ -34,7 +34,7 @@
 </body>
 <script>
     function unlinkAccount(id) {
-        if (confirm("Deseja realmente deletar esse usuário?")) {
+        if (confirm("Deseja realmente deletar esse banco?")) {
             fetch("/finance-control/vinculate-bank", {
                 method: "DELETE",
                 headers: {

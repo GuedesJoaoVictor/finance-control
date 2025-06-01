@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class ExpensesDAO {
+
     public static ArrayList<Expenses> findAllByCpf(String cpf) {
         ArrayList<Expenses> expenses = new ArrayList<>();
         try {
@@ -25,5 +26,18 @@ public class ExpensesDAO {
             System.out.println(e.getMessage());
         }
         return expenses;
+    }
+
+    public static boolean deleteById(int id) {
+        try {
+            Connection connection = ConectarBD.getConnectionPostgres();
+            PreparedStatement stmt = connection.prepareStatement("delete from expenses where id = ?");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }
