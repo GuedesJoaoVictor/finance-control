@@ -13,6 +13,7 @@
     <c:if test="${not empty user}">
         <h2>${bank.getName()}</h2>
 
+        <h2>Receitas</h2>
         <table>
             <thead>
                 <tr>
@@ -21,21 +22,43 @@
                     <th>Data</th>
                 </tr>
             </thead>
-            <tbody>
-                <c:forEach items="${revenues}" var="revenue">
+            <c:forEach items="${revenues}" var="revenue">
+                <tbody>
                     <tr>
                         <th>
-                            ${revenue.description}
+                                ${revenue.description}
                         </th>
                         <td>
-                            ${revenue.value}
+                                ${revenue.value}
                         </td>
                         <td>
-                            ${revenue.receipt_date}
+                                ${revenue.receipt_date}
                         </td>
                     </tr>
-                </c:forEach>
-                <c:forEach items="${expenses}" var="expense">
+                </tbody>
+            </c:forEach>
+            <c:if test="${not empty revenuesEmpty}">
+                <tfoot>
+                    <tr>
+                        <td colspan="3">
+                            <h3>${revenuesEmpty}</h3>
+                        </td>
+                    </tr>
+                </tfoot>
+            </c:if>
+        </table>
+
+        <h2>Gastos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <c:forEach items="${expenses}" var="expense">
+                <tbody>
                     <tr>
                         <th>
                             ${expense.description}
@@ -47,8 +70,17 @@
                             ${expense.expense_date}
                         </td>
                     </tr>
-                </c:forEach>
-            </tbody>
+                </tbody>
+            </c:forEach>
+            <c:if test="${not empty expensesEmpty}">
+                <tfoot>
+                    <tr>
+                        <td>
+                            <h3>${expensesEmpty}</h3>
+                        </td>
+                    </tr>
+                </tfoot>
+            </c:if>
         </table>
     </c:if>
     <c:if test="${empty user}">

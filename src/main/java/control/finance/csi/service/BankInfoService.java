@@ -22,8 +22,15 @@ public class BankInfoService {
 
         UserBank current = UserBankDAO.findById(userBankId);
         Bank bank = BankDAO.findById(current.getBank_id());
-        ArrayList<Expenses> expenses = ExpensesDAO.findAllByCpf(current.getUser_cpf());
-        ArrayList<Revenues> revenues = RevenuesDAO.findAllByCpf(current.getUser_cpf());
+        ArrayList<Expenses> expenses = getAllBankExpenses(current, bank);
+        ArrayList<Revenues> revenues = getAllBankRevenues(current, bank);
+
+        if (expenses.isEmpty()) {
+            req.setAttribute("expensesEmpty", "Nenhuma despesa foi registrada nessa conta!");
+        }
+        if (revenues.isEmpty()) {
+            req.setAttribute("revenuesEmpty", "Nenhuma receita foi registrada nessa conta!");
+        }
 
         req.setAttribute("bank", bank);
         req.setAttribute("userBank", current);
@@ -38,5 +45,29 @@ public class BankInfoService {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private ArrayList<Expenses> getAllBankExpenses(UserBank current, Bank bank) {
+        ArrayList<Expenses> expenses = ExpensesDAO.findAllByCpf(current.getUser_cpf());
+        ArrayList<Expenses> allBankExpenses = new ArrayList<>();
+        for(Expenses expense : expenses) {
+            if(expense.getBank_id() == bank.getId()) {
+                allBankExpenses.add(expense);
+            }
+        }
+
+        return allBankExpenses;
+    }
+
+    private ArrayList<Revenues> getAllBankRevenues(UserBank current, Bank bank) {
+        ArrayList<Revenues> revenues = RevenuesDAO.findAllByCpf(current.getUser_cpf());
+        ArrayList<Revenues> allBankRevenues = new ArrayList<>();
+        for(Revenues revenue : revenues) {
+            if(revenue.getBank_id() == bank.getId()) {
+                allBankRevenues.add(revenue);
+            }
+        }
+
+        return allBankRevenues;
     }
 }

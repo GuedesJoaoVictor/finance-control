@@ -10,13 +10,15 @@ public class Revenues {
     private BigDecimal value;
     private Date receipt_date;
     private int category_id;
+    private int bank_id;
 
-    public Revenues(String user_cpf, String description, BigDecimal value, Date receipt_date, int category_id) {
+    public Revenues(String user_cpf, String description, BigDecimal value, Date receipt_date, int category_id, int bank_id) {
         this.user_cpf = user_cpf;
         this.description = description;
         this.value = value;
         this.receipt_date = receipt_date;
         this.category_id = category_id;
+        this.bank_id = bank_id;
     }
 
     public int getId() {
@@ -65,6 +67,14 @@ public class Revenues {
 
     public void setCategory_id(int category_id) {
         this.category_id = category_id;
+    }
+
+    public int getBank_id() {
+        return bank_id;
+    }
+
+    public void setBank_id(int bank_id) {
+        this.bank_id = bank_id;
     }
 
     @Override

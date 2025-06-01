@@ -10,13 +10,15 @@ public class Expenses {
     private BigDecimal value;
     private Date expense_date;
     private int category_id;
+    private int bank_id;
 
-    public Expenses(String user_cpf, String description, BigDecimal value, Date expense_date, int category_id) {
+    public Expenses(String user_cpf, String description, BigDecimal value, Date expense_date, int category_id, int bank_id) {
         this.user_cpf = user_cpf;
         this.description = description;
         this.value = value;
         this.expense_date = expense_date;
         this.category_id = category_id;
+        this.bank_id = bank_id;
     }
 
     public int getId() {
@@ -65,6 +67,14 @@ public class Expenses {
 
     public void setCategory_id(int category_id) {
         this.category_id = category_id;
+    }
+
+    public int getBank_id() {
+        return bank_id;
+    }
+
+    public void setBank_id(int bank_id) {
+        this.bank_id = bank_id;
     }
 
     @Override

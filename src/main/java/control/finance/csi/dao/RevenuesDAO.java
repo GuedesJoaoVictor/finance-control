@@ -16,7 +16,7 @@ public class RevenuesDAO {
             stmt.setString(1, cpf);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Revenues revenue = new Revenues(rs.getString("user_cpf"), rs.getString("description"), rs.getBigDecimal("value"), rs.getDate("receipt_date"), rs.getInt("category_id"));
+                Revenues revenue = new Revenues(rs.getString("user_cpf"), rs.getString("description"), rs.getBigDecimal("value"), rs.getDate("receipt_date"), rs.getInt("category_id"), rs.getInt("bank_id"));
                 revenue.setId(rs.getInt("id"));
                 revenues.add(revenue);
             }

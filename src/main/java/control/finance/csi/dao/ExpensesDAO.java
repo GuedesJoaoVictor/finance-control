@@ -16,7 +16,7 @@ public class ExpensesDAO {
             stmt.setString(1, cpf);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Expenses current = new Expenses(rs.getString("user_cpf"), rs.getString("description"), rs.getBigDecimal("value"), rs.getDate("expense_date"), rs.getInt("category_id"));
+                Expenses current = new Expenses(rs.getString("user_cpf"), rs.getString("description"), rs.getBigDecimal("value"), rs.getDate("expense_date"), rs.getInt("category_id"), rs.getInt("bank_id"));
                 current.setId(rs.getInt("id"));
                 expenses.add(current);
             }
