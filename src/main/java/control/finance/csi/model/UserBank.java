@@ -55,4 +55,15 @@ public class UserBank {
     public void setInitial_balance(BigDecimal initial_balance) {
         this.initial_balance = initial_balance;
     }
+    @Override
+    public String toString() {
+        return "UserBank{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", user_cpf='" + user_cpf + '\'' +
+                ", bank_id=" + bank_id +
+                ", initial_balance=" + initial_balance +
+                '}';
+    }
+
 }

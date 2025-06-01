@@ -66,4 +66,17 @@ public class Revenues {
     public void setCategory_id(int category_id) {
         this.category_id = category_id;
     }
+
+    @Override
+    public String toString() {
+        return "Revenues{" +
+                "id=" + id +
+                ", user_cpf='" + user_cpf + '\'' +
+                ", description='" + description + '\'' +
+                ", value=" + value +
+                ", receipt_date=" + receipt_date +
+                ", category_id=" + category_id +
+                '}';
+    }
+
 }

@@ -31,7 +31,7 @@ public class BankInfoService {
         req.setAttribute("revenues", revenues);
 
         GetSessionAtributtes.setAttributtes(req);
-        RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/views/home.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/bank-info.jsp");
         try {
             rd.forward(req, resp);
             return;

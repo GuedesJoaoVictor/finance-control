@@ -16,7 +16,7 @@ public class BankDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Bank bank = new Bank(rs.getString("name"), rs.getString("type"));
+                Bank bank = new Bank(rs.getString("name"));
                 bank.setId(rs.getInt("id"));
                 banks.add(bank);
             }
@@ -38,7 +38,9 @@ public class BankDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return new Bank(rs.getString("name"), rs.getString("type"));
+                Bank bank = new Bank(rs.getString("name"));
+                bank.setId(rs.getInt("id"));
+                return bank;
             }
         }
         catch (Exception e) {
@@ -55,7 +57,7 @@ public class BankDAO {
             stmt.setString(1, name);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                Bank bank = new Bank(rs.getString("name"), rs.getString("type"));
+                Bank bank = new Bank(rs.getString("name"));
                 bank.setId(rs.getInt("id"));
                 return bank;
             }

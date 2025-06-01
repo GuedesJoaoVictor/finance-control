@@ -66,4 +66,17 @@ public class Expenses {
     public void setCategory_id(int category_id) {
         this.category_id = category_id;
     }
+
+    @Override
+    public String toString() {
+        return "Expenses{" +
+                "id=" + id +
+                ", user_cpf='" + user_cpf + '\'' +
+                ", description='" + description + '\'' +
+                ", value=" + value +
+                ", expense_date=" + expense_date +
+                ", category_id=" + category_id +
+                '}';
+    }
+
 }

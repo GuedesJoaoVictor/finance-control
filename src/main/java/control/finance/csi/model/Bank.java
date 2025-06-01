@@ -3,11 +3,9 @@ package control.finance.csi.model;
 public class Bank {
     private int id;
     private String name;
-    private String type; // Fazer um enum com os tipos de conta de banco
 
-    public Bank(String name, String type) {
+    public Bank(String name) {
         this.name = name;
-        this.type = type;
     }
 
     public int getId() {
@@ -26,11 +24,12 @@ public class Bank {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
-    }
 
-    public void setType(String type) {
-        this.type = type;
+    @Override
+    public String toString() {
+        return "Bank{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
