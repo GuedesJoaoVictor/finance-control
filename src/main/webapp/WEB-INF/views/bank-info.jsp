@@ -14,6 +14,7 @@
         <h2>${bank.getName()}</h2>
 
         <h2>Receitas</h2>
+        <a href="/finance-control/revenues?userBankId=${userBank.getId()}">Adicionar Receita</a>
         <table>
             <thead>
                 <tr>

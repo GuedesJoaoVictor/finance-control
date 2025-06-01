@@ -1,13 +1,20 @@
 package control.finance.csi.model;
 
 public class Category {
-    private int id;
+    private Integer id;
     private String type; // Fazer um enum de tipos de categoria
     private String name;
+    private String user_cpf;
 
     public Category(String type, String name) {
         this.type = type;
         this.name = name;
+    }
+
+    public Category(String type, String name, String user_cpf) {
+        this.type = type;
+        this.name = name;
+        this.user_cpf = user_cpf;
     }
 
     public int getId() {

@@ -15,6 +15,11 @@ public class ExpensesController extends HttpServlet {
     private final ExpensesService expensesService = new ExpensesService();
 
     @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        expensesService.createExpense(req, resp);
+    }
+
+    @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         expensesService.deleteExpense(req, resp);
     }

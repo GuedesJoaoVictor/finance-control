@@ -15,6 +15,19 @@ public class RevenuesController extends HttpServlet {
     private final RevenuesService revenuesService = new RevenuesService();
 
     @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        revenuesService.createRevenue(req, resp);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int userBankId = Integer.parseInt(req.getParameter("userBankId"));
+
+        req.setAttribute("userBankId", userBankId);
+        req.setAttribute("user", req.getSession().getAttribute("user"));
+    }
+
+    @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         revenuesService.deleteRevenue(req, resp);
     }
