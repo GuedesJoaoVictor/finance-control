@@ -3,6 +3,7 @@ package control.finance.csi.dao;
 import control.finance.csi.model.Revenues;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -39,5 +40,29 @@ public class RevenuesDAO {
             System.out.println(e.getMessage());
             return false;
         }
+    }
+
+    public static Revenues create(Revenues revenue) {
+        try {
+            Connection connection = ConectarBD.getConnectionPostgres();
+            PreparedStatement stmt = connection.prepareStatement("insert into revenues (user_cpf, description, value, receipt_date, category_id, bank_id) values (?, ?, ?, ?, ?, ?)");
+            stmt.setString(1, revenue.getUser_cpf());
+            stmt.setString(2, revenue.getDescription());
+            stmt.setBigDecimal(3, revenue.getValue());
+            stmt.setDate(4, new Date(revenue.getReceipt_date().getTime()));
+            stmt.setInt(5, revenue.getCategory_id());
+            stmt.setInt(6, revenue.getBank_id());
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                revenue.setId(rs.getInt("id"));
+                return revenue;
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 }

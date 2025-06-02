@@ -11,5 +11,23 @@
 
 <body>
 <%-- TODO: Criar o formulario e redirecionar para a rota post de /finance-control/revenues--%>
+    <form method="post" action="/finance-control/revenues">
+        <label for="value">Valor: </label>
+        <input type="number" id="value" name="value" step="0.01" required>
+        <label for="date">Data: </label>
+        <input id="date" name="date" type="date" required>
+        <label for="category">Categoria: </label>
+        <select id="category" name="category">
+            <c:forEach items="${categories}" var="category">
+                <option value="${category.id}">${category.name}</option>
+            </c:forEach>
+        </select>
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" required>
+        <input type="hidden" name="bankId" value="${bank.getId()}">
+        <input type="hidden" name="userBankId" value="${userBankId}">
+        <button type="submit">Enviar</button>
+    </form>
+    <a href="/finance-control/home">Voltar</a>
 </body>
 </html>
