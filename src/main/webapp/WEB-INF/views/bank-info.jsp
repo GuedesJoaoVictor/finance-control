@@ -54,6 +54,7 @@
         </table>
 
         <h2>Gastos</h2>
+        <a href="/finance-control/expenses?userBankId=${userBank.getId()}">Adicionar Receita</a>
         <table>
             <thead>
                 <tr>
@@ -112,7 +113,7 @@
     }
     function onClickDeleteExpense(id) {
         if (confirm("Realmente deseja remover esse gasto?")) {
-            fetch("/finance-control/revenues", {
+            fetch("/finance-control/expenses", {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"

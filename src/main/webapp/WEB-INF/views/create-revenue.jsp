@@ -22,7 +22,7 @@
                 <option value="${category.id}">${category.name}</option>
             </c:forEach>
         </select>
-        <label for="description">Description</label>
+        <label for="description">Descrição: </label>
         <input type="text" name="description" id="description" required>
         <input type="hidden" name="bankId" value="${bank.getId()}">
         <input type="hidden" name="userBankId" value="${userBankId}">
