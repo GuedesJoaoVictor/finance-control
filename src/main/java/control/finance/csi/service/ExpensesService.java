@@ -80,21 +80,63 @@ public class ExpensesService {
         return categories;
     }
 
-    public void editExpense(HttpServletRequest req, HttpServletResponse resp) {
+    public void redirectEditExpense(HttpServletRequest req, HttpServletResponse resp) {
         int userBankId = Integer.parseInt(req.getParameter("userBankId"));
         int expenseId = Integer.parseInt(req.getParameter("id"));
 
         Expenses expense = ExpensesDAO.findById(expenseId);
+        User user = (User) req.getSession().getAttribute("user");
         UserBank userBank = UserBankDAO.findById(userBankId);
         Bank bank = BankDAO.findById(userBank.getBank_id());
+        ArrayList<Category> categories = getAllCategoriesPerUser(user);
 
         req.setAttribute("expense", expense);
         req.setAttribute("userBankId", userBankId);
+        req.setAttribute("expenseId", expenseId);
         req.setAttribute("bank", bank);
+        req.setAttribute("categories", categories);
 
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/edit-expense.jsp");
         try {
             rd.forward(req, resp);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateExpense(HttpServletRequest req, HttpServletResponse resp) {
+        int expenseId = Integer.parseInt(req.getParameter("expenseId"));
+        int userBankId = Integer.parseInt(req.getParameter("userBankId"));
+        BigDecimal value = BigDecimal.valueOf(Double.parseDouble(req.getParameter("value")));
+        String dateString = req.getParameter("date");
+        String description = req.getParameter("description");
+        int categoryId = Integer.parseInt(req.getParameter("category"));
+
+        System.out.println(expenseId);
+        System.out.println(userBankId);
+        System.out.println(value);
+        System.out.println(description);
+        System.out.println(categoryId);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = sdf.parse(dateString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        UserBank userBank = UserBankDAO.findById(userBankId);
+        Bank bank = BankDAO.findById(userBank.getBank_id());
+        User user = (User) req.getSession().getAttribute("user");
+        Expenses expense = new Expenses(user.getCpf(), description, value, date, categoryId, bank.getId());
+        expense.setId(expenseId);
+
+        ExpensesDAO.update(expense);
+
+        try {
+            resp.sendRedirect(req.getContextPath() + "/bank-info?userBankId=" + userBankId);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());

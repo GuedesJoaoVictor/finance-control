@@ -81,4 +81,26 @@ public class ExpensesDAO {
         }
         return null;
     }
+
+    public static Expenses update(Expenses expenses) {
+        try {
+            Connection connection = ConectarBD.getConnectionPostgres();
+            PreparedStatement stmt = connection.prepareStatement("update expenses set user_cpf = ?, description = ?, value = ?, expense_date = ?, category_id = ?, bank_id = ? where id = ?");
+            stmt.setString(1, expenses.getUser_cpf());
+            stmt.setString(2, expenses.getDescription());
+            stmt.setBigDecimal(3, expenses.getValue());
+            stmt.setDate(4, new Date(expenses.getExpense_date().getTime()));
+            stmt.setInt(5, expenses.getCategory_id());
+            stmt.setInt(6, expenses.getBank_id());
+            stmt.setInt(7, expenses.getId());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return expenses;
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }

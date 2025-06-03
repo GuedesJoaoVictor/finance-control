@@ -16,6 +16,6 @@ public class ChangeExpensesController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        expensesService.editExpense(req, resp);
+        expensesService.redirectEditExpense(req, resp);
     }
 }

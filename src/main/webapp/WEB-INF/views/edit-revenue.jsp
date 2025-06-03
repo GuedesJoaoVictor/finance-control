@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=ISO-8859-1" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page isELIgnored="false" %>
-<html lang="ptt a-br">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<form method="post" action="/finance-control/revenues">
+<form id="expenseForm">
     <label for="value">Valor: </label>
     <input type="number" id="value" name="value" step="0.01" value="${revenue.value}" required>
     <label for="date">Data: </label>
@@ -23,10 +23,31 @@
     </select>
     <label for="description">Descrição: </label>
     <input type="text" name="description" id="description" value="${revenue.description}" required>
-    <input type="hidden" name="bankId" value="${bank.getId()}">
+    <input type="hidden" name="revenueId" value="${revenue.id}">
     <input type="hidden" name="userBankId" value="${userBankId}">
-    <button type="submit">Enviar</button>
+    <button type="button" onclick="submitPutForm()">Enviar</button>
 </form>
-<a href="/finance-control/home">Voltar</a>
+<a href="/finance-control/bank-info?userBankId=${userBankId}">Voltar</a>
 </body>
+<script>
+    function submitPutForm() {
+        const form = document.getElementById("expenseForm");
+        const formData = new FormData(form);
+
+        const params = new URLSearchParams();
+        for (const [key, value] of formData.entries()) {
+            params.append(key, value);
+        }
+
+        fetch('/finance-control/revenues', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: params
+        }).then(response => {
+            window.location.href = "/finance-control/bank-info?userBankId=${userBankId}";
+        });
+    }
+</script>
 </html>

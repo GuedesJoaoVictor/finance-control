@@ -83,4 +83,26 @@ public class RevenuesDAO {
         }
         return null;
     }
+
+    public static Revenues update(Revenues revenue) {
+        try {
+            Connection connection = ConectarBD.getConnectionPostgres();
+            PreparedStatement stmt = connection.prepareStatement("update revenues set user_cpf = ?, description = ?, value = ?, receipt_date = ?, category_id = ?, bank_id = ? where id = ?");
+            stmt.setString(1, revenue.getUser_cpf());
+            stmt.setString(2, revenue.getDescription());
+            stmt.setBigDecimal(3, revenue.getValue());
+            stmt.setDate(4, new Date(revenue.getReceipt_date().getTime()));
+            stmt.setInt(5, revenue.getCategory_id());
+            stmt.setInt(6, revenue.getBank_id());
+            stmt.setInt(7, revenue.getId());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return revenue;
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }

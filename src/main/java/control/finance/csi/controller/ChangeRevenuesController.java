@@ -19,6 +19,6 @@ public class ChangeRevenuesController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        revenuesService.editRevenue(req, resp);
+        revenuesService.redirectEditRevenue(req, resp);
     }
 }

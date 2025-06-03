@@ -28,4 +28,9 @@ public class ExpensesController extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         expensesService.deleteExpense(req, resp);
     }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        expensesService.updateExpense(req, resp);
+    }
 }
