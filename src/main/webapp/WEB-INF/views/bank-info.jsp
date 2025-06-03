@@ -37,6 +37,7 @@
                                 ${revenue.receipt_date}
                         </td>
                         <td>
+                            <button onclick="onClickRedirectToEditRevenue(${revenue.id})">Editar</button>
                             <button onclick="onClickDeleteRevenue(${revenue.id})">Remover</button>
                         </td>
                     </tr>
@@ -54,7 +55,7 @@
         </table>
 
         <h2>Gastos</h2>
-        <a href="/finance-control/expenses?userBankId=${userBank.getId()}">Adicionar Receita</a>
+        <a href="/finance-control/expenses?userBankId=${userBank.getId()}">Adicionar Gasto</a>
         <table>
             <thead>
                 <tr>
@@ -77,6 +78,7 @@
                             ${expense.expense_date}
                         </td>
                         <td>
+                            <button onclick="onClickRedirectToEditExpense(${expense.id})">Editar</button>
                             <button onclick="onClickDeleteExpense(${expense.id})">Remover</button>
                         </td>
                     </tr>
@@ -123,6 +125,14 @@
                 location.replace("http://localhost:8080/finance-control/bank-info?userBankId=" + "${userBank.getId()}");
             })
         }
+    }
+
+    function onClickRedirectToEditExpense(id) {
+        window.location.href = "/finance-control/change-expenses?userBankId=${userBank.getId()}&id=" + id;
+    }
+
+    function onClickRedirectToEditRevenue(id) {
+        window.location.href = "/finance-control/change-revenues?userBankId=${userBank.getId()}&id=" + id;
     }
 </script>
 </html>

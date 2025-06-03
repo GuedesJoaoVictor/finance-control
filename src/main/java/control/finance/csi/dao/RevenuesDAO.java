@@ -65,4 +65,22 @@ public class RevenuesDAO {
 
         return null;
     }
+
+    public static Revenues findById(int id) {
+        try {
+            Connection connection = ConectarBD.getConnectionPostgres();
+            PreparedStatement stmt = connection.prepareStatement("select * from revenues where id = ?");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Revenues revenue = new Revenues(rs.getString("user_cpf"), rs.getString("description"), rs.getBigDecimal("value"), rs.getDate("receipt_date"), rs.getInt("category_id"), rs.getInt("bank_id"));
+                revenue.setId(rs.getInt("id"));
+                return revenue;
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }

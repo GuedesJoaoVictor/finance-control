@@ -10,7 +10,6 @@
 </head>
 
 <body>
-<%-- TODO: Criar o formulario e redirecionar para a rota post de /finance-control/expenses--%>
   <form method="post" action="/finance-control/expenses">
     <label for="value">Valor: </label>
     <input type="number" id="value" name="value" step="0.01" required>

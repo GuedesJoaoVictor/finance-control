@@ -63,4 +63,22 @@ public class ExpensesDAO {
         }
         return null;
     }
+
+    public static Expenses findById(int id) {
+        try {
+            Connection connection = ConectarBD.getConnectionPostgres();
+            PreparedStatement stmt = connection.prepareStatement("select * from expenses where id = ?");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Expenses expense = new Expenses(rs.getString("user_cpf"), rs.getString("description"), rs.getBigDecimal("value"), rs.getDate("expense_date"), rs.getInt("category_id"), rs.getInt("bank_id"));
+                expense.setId(rs.getInt("id"));
+                return expense;
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }

@@ -79,4 +79,25 @@ public class ExpensesService {
         }
         return categories;
     }
+
+    public void editExpense(HttpServletRequest req, HttpServletResponse resp) {
+        int userBankId = Integer.parseInt(req.getParameter("userBankId"));
+        int expenseId = Integer.parseInt(req.getParameter("id"));
+
+        Expenses expense = ExpensesDAO.findById(expenseId);
+        UserBank userBank = UserBankDAO.findById(userBankId);
+        Bank bank = BankDAO.findById(userBank.getBank_id());
+
+        req.setAttribute("expense", expense);
+        req.setAttribute("userBankId", userBankId);
+        req.setAttribute("bank", bank);
+
+        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/edit-expense.jsp");
+        try {
+            rd.forward(req, resp);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

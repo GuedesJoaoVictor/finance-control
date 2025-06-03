@@ -82,4 +82,25 @@ public class RevenuesService {
         }
         return categories;
     }
+
+    public void editRevenue(HttpServletRequest req, HttpServletResponse resp) {
+        int userBankId = Integer.parseInt(req.getParameter("userBankId"));
+        int revenueId = Integer.parseInt(req.getParameter("id"));
+
+        Revenues revenue = RevenuesDAO.findById(revenueId);
+        UserBank userBank = UserBankDAO.findById(userBankId);
+        Bank bank = BankDAO.findById(userBank.getBank_id());
+
+        req.setAttribute("revenue", revenue);
+        req.setAttribute("userBankId", userBankId);
+        req.setAttribute("bank", bank);
+
+        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/edit-revenue.jsp");
+        try {
+            rd.forward(req, resp);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
