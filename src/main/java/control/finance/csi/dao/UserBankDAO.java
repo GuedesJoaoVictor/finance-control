@@ -64,10 +64,30 @@ public class UserBankDAO {
     public static boolean delete(int userBankId) {
         try {
             Connection connection = ConectarBD.getConnectionPostgres();
-            PreparedStatement stmt = connection.prepareStatement("delete from user_bank where id = ?");
+            connection.setAutoCommit(false);
+
+            UserBank userBank = UserBankDAO.findById(userBankId);
+            // Deleta expenses
+            PreparedStatement stmt = connection.prepareStatement("delete from expenses where user_cpf = ? and bank_id = ?");
+            stmt.setString(1, userBank.getUser_cpf());
+            stmt.setInt(2, userBank.getBank_id());
+            stmt.executeUpdate();
+            stmt.close();
+
+            // Deleta revenues
+            stmt = connection.prepareStatement("delete from revenues where user_cpf = ? and bank_id = ?");
+            stmt.setString(1, userBank.getUser_cpf());
+            stmt.setInt(2, userBank.getBank_id());
+            stmt.executeUpdate();
+            stmt.close();
+
+            // Deleta o vinculo do usuario com o banco
+            stmt = connection.prepareStatement("delete from user_bank where id = ?");
             stmt.setInt(1, userBankId);
-            ResultSet rs = stmt.executeQuery();
-            return rs.next();
+            int rows = stmt.executeUpdate();
+
+            connection.commit();
+            return rows > 0;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
