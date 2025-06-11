@@ -19,7 +19,7 @@
             <label for="password">Password: </label>
             <input id="password" type="password" name="password" required>
             <label for="cpf">Cpf: </label>
-            <input id="cpf" name="cpf" type="text" required>
+            <input id="cpf" name="cpf" type="text" required placeholder="000.000.000-00" maxlength="14">
             <button type="submit">Enviar</button>
         </form>
         <div>
@@ -27,4 +27,22 @@
           <a href="./login.jsp">Clique aqui.</a>
         </div>
     </body>
+    <script>
+        function cpfMask(value) {
+            return value
+                .replace(/\D/g, '') // Remove tudo que não for dígito
+                .replace(/(\d{3})(\d)/, '$1.$2') // Coloca o primeiro ponto
+                .replace(/(\d{3})(\d)/, '$1.$2') // Segundo ponto
+                .replace(/(\d{3})(\d{1,2})$/, '$1-$2'); // Hífen
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const cpfInput = document.getElementById("cpf");
+
+            cpfInput.addEventListener("input", function (e) {
+                const value = e.target.value;
+                e.target.value = cpfMask(value);
+            });
+        });
+    </script>
 </html>

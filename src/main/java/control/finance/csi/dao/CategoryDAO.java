@@ -11,9 +11,9 @@ public class CategoryDAO {
 
     public static ArrayList<Category> findAll() {
         ArrayList<Category> categories = new ArrayList<>();
-        try {
-            Connection connection = ConectarBD.getConnectionPostgres();
-            PreparedStatement stmt = connection.prepareStatement("select * from category");
+        try (Connection connection = ConectarBD.getConnectionPostgres();
+             PreparedStatement stmt = connection.prepareStatement("select * from category")) {
+
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Category category = new Category(rs.getString("type"), rs.getString("name"), rs.getString("user_cpf"));

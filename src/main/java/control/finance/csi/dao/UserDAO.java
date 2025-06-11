@@ -12,11 +12,9 @@ public class UserDAO {
     public static ArrayList<User> findAll() {
         ArrayList<User> users = new ArrayList<>();
 
-        try {
-            Connection connection = ConectarBD.getConnectionPostgres();
-
-            PreparedStatement stmt = connection.prepareStatement("select * from users");
-            ResultSet rs = stmt.executeQuery();
+        try (Connection connection = ConectarBD.getConnectionPostgres();
+             PreparedStatement stmt = connection.prepareStatement("select * from users");
+             ResultSet rs = stmt.executeQuery();) {
 
             while (rs.next()) {
                 User user = new User(rs.getString("cpf"), rs.getString("name"), rs.getString("email"), rs.getString("password"));
@@ -32,9 +30,8 @@ public class UserDAO {
     }
 
     public static User create(User user) {
-        try {
-            Connection connection = ConectarBD.getConnectionPostgres();
-            PreparedStatement stmt = connection.prepareStatement("insert into users (cpf, name, email, password) values (?, ?, ?, ?)");
+        try (Connection connection = ConectarBD.getConnectionPostgres();
+            PreparedStatement stmt = connection.prepareStatement("insert into users (cpf, name, email, password) values (?, ?, ?, ?)")) {
             stmt.setString(1, user.getCpf());
             stmt.setString(2, user.getName());
             stmt.setString(3, user.getEmail());
@@ -51,11 +48,10 @@ public class UserDAO {
     }
 
     public static User findByCpf(String cpf) {
-        try {
-            Connection connection = ConectarBD.getConnectionPostgres();
-            PreparedStatement stmt = connection.prepareStatement("select * from users where cpf = ?");
-            stmt.setString(1, cpf);
+        try (Connection connection = ConectarBD.getConnectionPostgres();
+             PreparedStatement stmt = connection.prepareStatement("select * from users where cpf = ?")) {
 
+            stmt.setString(1, cpf);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -71,11 +67,10 @@ public class UserDAO {
     }
 
     public static User findByEmail(String email) {
-        try {
-            Connection connection = ConectarBD.getConnectionPostgres();
-            PreparedStatement stmt = connection.prepareStatement("select * from users where email = ?");
-            stmt.setString(1, email);
+        try (Connection connection = ConectarBD.getConnectionPostgres();
+             PreparedStatement stmt = connection.prepareStatement("select * from users where email = ?");) {
 
+            stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -92,9 +87,9 @@ public class UserDAO {
     }
 
     public static User update(User user) {
-        try {
-            Connection connection = ConectarBD.getConnectionPostgres();
-            PreparedStatement stmt = connection.prepareStatement("update users set name = ?, email = ?, password = ? where cpf = ?");
+        try (Connection connection = ConectarBD.getConnectionPostgres();
+             PreparedStatement stmt = connection.prepareStatement("update users set name = ?, email = ?, password = ? where cpf = ?")) {
+
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getPassword());
@@ -113,9 +108,9 @@ public class UserDAO {
     }
 
     public static boolean delete(String cpf) {
-        try {
-            Connection connection = ConectarBD.getConnectionPostgres();
-            PreparedStatement stmt = connection.prepareStatement("delete from users where cpf = ?");
+        try (Connection connection = ConectarBD.getConnectionPostgres();
+             PreparedStatement stmt = connection.prepareStatement("delete from users where cpf = ?")) {
+
             stmt.setString(1, cpf);
 
             return stmt.executeUpdate() > 0;

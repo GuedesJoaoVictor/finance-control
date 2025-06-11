@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <a href="/finance-control/logout">Sair</a>
     <c:if test="${not empty user}">
         <h2>${bank.getName()}</h2>
 

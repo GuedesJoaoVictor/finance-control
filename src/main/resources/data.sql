@@ -94,3 +94,4 @@ INSERT INTO expenses (user_cpf, description, value, expense_date, category_id, b
                                                                                        ('031.903.253-83', 'Delivery de comida', 210.75, '2025-04-25', 3, 1),
                                                                                        ('031.903.253-83', 'Combustível', 365.00, '2025-05-12', 4, 1);
 
+-- alter table public.user_bank rename column initial_balance to total_amount;

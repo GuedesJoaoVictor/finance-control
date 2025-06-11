@@ -10,6 +10,7 @@
 </head>
 
 <body>
+<a href="/finance-control/logout">Sair</a>
 <form id="expenseForm">
     <label for="value">Valor: </label>
     <input type="number" id="value" name="value" step="0.01" value="${revenue.value}" required>

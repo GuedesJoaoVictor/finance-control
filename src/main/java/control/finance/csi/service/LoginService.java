@@ -1,11 +1,8 @@
 package control.finance.csi.service;
 
-import java.util.ArrayList;
-
-import control.finance.csi.dao.UserBankDAO;
 import control.finance.csi.dao.UserDAO;
 import control.finance.csi.model.User;
-import control.finance.csi.model.UserBank;
+import control.finance.csi.util.GetSessionAtributtes;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,8 +29,7 @@ public class LoginService {
         if(user != null && user.getEmail().equals(email) && user.getPassword().equals(password)) {
             // Usuario autenticdo com sucesso
             req.getSession().setAttribute("user", user);
-            ArrayList<UserBank> userBanks = UserBankDAO.findAllByCpf(user.getCpf());
-            req.getSession().setAttribute("userBanks", userBanks);
+            GetSessionAtributtes.setAttributtes(req);
             // Mandar também além dos bancos, as transações feitas. Tanto as bonificações quanto os descontos.
             RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
             try {

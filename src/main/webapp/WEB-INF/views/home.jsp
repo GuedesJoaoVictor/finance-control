@@ -12,6 +12,7 @@
 <body>
 <c:if test="${not empty user}">
     <h1>Olá ${user.getName()}!</h1>
+    <a href="/finance-control/logout">Sair</a>
     <button>
         <a href="/finance-control/vinculate-bank">Adicionar banco</a>
     </button>
@@ -24,7 +25,7 @@
         <ul>
             <c:forEach items="${userBanks}" var="bank">
                 <li>
-                    <a href="/finance-control/bank-info?userBankId=${bank.id}">${bank.name}</a> - ${bank.initial_balance}
+                    <a href="/finance-control/bank-info?userBankId=${bank.id}">${bank.name}</a> - ${bank.totalAmount}
                     <button onclick="unlinkAccount(${bank.id})">Remover Conta</button>
                 </li>
             </c:forEach>

@@ -7,13 +7,15 @@ public class UserBank {
     private String name; // Nome da conta
     private String user_cpf;
     private int bank_id;
-    private BigDecimal initial_balance;
+    // Fazer o initialBalance virar totalAmount, no caso
+    // o tanto que ele tem de dinheiro sobrando, ou devendo pro banco
+    private BigDecimal totalAmount;
 
-    public UserBank(String name, String user_cpf, int bank_id, BigDecimal initial_balance) {
+    public UserBank(String name, String user_cpf, int bank_id, BigDecimal totalAmount) {
         this.name = name;
         this.user_cpf = user_cpf;
         this.bank_id = bank_id;
-        this.initial_balance = initial_balance;
+        this.totalAmount = totalAmount;
     }
 
     public int getId() {
@@ -48,12 +50,12 @@ public class UserBank {
         this.bank_id = bank_id;
     }
 
-    public BigDecimal getInitial_balance() {
-        return initial_balance;
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setInitial_balance(BigDecimal initial_balance) {
-        this.initial_balance = initial_balance;
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
     }
     @Override
     public String toString() {
@@ -62,7 +64,7 @@ public class UserBank {
                 ", name='" + name + '\'' +
                 ", user_cpf='" + user_cpf + '\'' +
                 ", bank_id=" + bank_id +
-                ", initial_balance=" + initial_balance +
+                ", initial_balance=" + totalAmount +
                 '}';
     }
 

@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public class BankDAO {
     public static ArrayList<Bank> findAll() {
         ArrayList<Bank> banks = new ArrayList<>();
-        try {
-            Connection connection = ConectarBD.getConnectionPostgres();
-            PreparedStatement stmt = connection.prepareStatement("select * from bank");
+        try (Connection connection = ConectarBD.getConnectionPostgres();
+             PreparedStatement stmt = connection.prepareStatement("select * from bank")) {
+
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -51,9 +51,9 @@ public class BankDAO {
     }
 
     public static Bank findByName(String name) {
-        try {
-            Connection connection = ConectarBD.getConnectionPostgres();
-            PreparedStatement stmt = connection.prepareStatement("select * from bank where name = ?");
+        try (Connection connection = ConectarBD.getConnectionPostgres();
+             PreparedStatement stmt = connection.prepareStatement("select * from bank where name = ?");) {
+
             stmt.setString(1, name);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {

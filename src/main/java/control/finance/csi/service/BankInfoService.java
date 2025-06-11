@@ -19,6 +19,7 @@ public class BankInfoService {
 
     public void getBankInfo(HttpServletRequest req, HttpServletResponse resp) {
         int userBankId = Integer.parseInt(req.getParameter("userBankId"));
+        System.out.println("USERBANKID: " + userBankId);
 
         UserBank current = UserBankDAO.findById(userBankId);
         Bank bank = BankDAO.findById(current.getBank_id());

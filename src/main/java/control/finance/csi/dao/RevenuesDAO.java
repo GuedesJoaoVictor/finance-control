@@ -12,9 +12,9 @@ public class RevenuesDAO {
 
     public static ArrayList<Revenues> findAllByCpf(String cpf) {
         ArrayList<Revenues> revenues = new ArrayList<>();
-        try {
-            Connection connection = ConectarBD.getConnectionPostgres();
-            PreparedStatement stmt = connection.prepareStatement("select * from revenues where user_cpf = ?");
+        try (Connection connection = ConectarBD.getConnectionPostgres();
+             PreparedStatement stmt = connection.prepareStatement("select * from revenues where user_cpf = ?")) {
+
             stmt.setString(1, cpf);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -30,9 +30,9 @@ public class RevenuesDAO {
     }
 
     public static boolean deleteById(int id) {
-        try {
-            Connection connection = ConectarBD.getConnectionPostgres();
-            PreparedStatement stmt = connection.prepareStatement("delete from revenues where id = ?");
+        try (Connection connection = ConectarBD.getConnectionPostgres();
+             PreparedStatement stmt = connection.prepareStatement("delete from revenues where id = ?");) {
+
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             return rs.next();
@@ -43,9 +43,10 @@ public class RevenuesDAO {
     }
 
     public static Revenues create(Revenues revenue) {
-        try {
-            Connection connection = ConectarBD.getConnectionPostgres();
-            PreparedStatement stmt = connection.prepareStatement("insert into revenues (user_cpf, description, value, receipt_date, category_id, bank_id) values (?, ?, ?, ?, ?, ?)");
+        try (Connection connection = ConectarBD.getConnectionPostgres();
+             PreparedStatement stmt = connection.prepareStatement(
+             "insert into revenues (user_cpf, description, value, receipt_date, category_id, bank_id) values (?, ?, ?, ?, ?, ?)")) {
+
             stmt.setString(1, revenue.getUser_cpf());
             stmt.setString(2, revenue.getDescription());
             stmt.setBigDecimal(3, revenue.getValue());
@@ -85,9 +86,10 @@ public class RevenuesDAO {
     }
 
     public static Revenues update(Revenues revenue) {
-        try {
-            Connection connection = ConectarBD.getConnectionPostgres();
-            PreparedStatement stmt = connection.prepareStatement("update revenues set user_cpf = ?, description = ?, value = ?, receipt_date = ?, category_id = ?, bank_id = ? where id = ?");
+        try (Connection connection = ConectarBD.getConnectionPostgres();
+             PreparedStatement stmt = connection.prepareStatement(
+             "update revenues set user_cpf = ?, description = ?, value = ?, receipt_date = ?, category_id = ?, bank_id = ? where id = ?")) {
+
             stmt.setString(1, revenue.getUser_cpf());
             stmt.setString(2, revenue.getDescription());
             stmt.setBigDecimal(3, revenue.getValue());
