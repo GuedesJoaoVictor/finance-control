@@ -44,10 +44,10 @@
 <script>
     function cpfMask(value) {
         return value
-            .replace(/\D/g, '') // Remove tudo que não for dígito
-            .replace(/(\d{3})(\d)/, '$1.$2') // Coloca o primeiro ponto
-            .replace(/(\d{3})(\d)/, '$1.$2') // Segundo ponto
-            .replace(/(\d{3})(\d{1,2})$/, '$1-$2'); // Hífen
+            .replace(/\D/g, '')
+            .replace(/(\d{3})(\d)/, '$1.$2')
+            .replace(/(\d{3})(\d)/, '$1.$2')
+            .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
     }
 
     document.addEventListener("DOMContentLoaded", function () {
