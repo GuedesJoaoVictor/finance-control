@@ -36,7 +36,7 @@ public class UserBankDAO {
         return null;
     }
 
-    public static UserBank create(String cpf, String bankName, String nameAccount, BigDecimal totalAmount) {
+    public static UserBank create(String cpf, String bankName, BigDecimal totalAmount) {
         try (Connection connection = ConectarBD.getConnectionPostgres();
              PreparedStatement stmt = connection.prepareStatement("insert into user_bank (user_cpf, bank_id, name, total_amount) values (?, ?, ?, ?)")) {
 
@@ -44,7 +44,7 @@ public class UserBankDAO {
 
             stmt.setString(1, cpf);
             stmt.setInt(2, bank.getId());
-            stmt.setString(3, nameAccount);
+            stmt.setString(3, bankName);
             stmt.setBigDecimal(4, totalAmount);
 
             ResultSet rs = stmt.executeQuery();

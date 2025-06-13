@@ -20,9 +20,8 @@ public class VinculateBankService {
     public void vinculateBank(HttpServletRequest req, HttpServletResponse resp) {
         String cpf = req.getParameter("cpf");
         String bank = req.getParameter("bank");
-        String nameAccount = req.getParameter("name");
 
-        if (cpf == null || bank == null || nameAccount == null) {
+        if (cpf == null || bank == null) {
             String message = "Todos os campos devem ser preenchidos!";
             req.setAttribute("message", message);
             RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/vinculate-bank.jsp");
@@ -46,7 +45,7 @@ public class VinculateBankService {
         }
 
         // Vinculando o usuario ao banco no banco de dados
-        UserBankDAO.create(cpf, bank, nameAccount, BigDecimal.ZERO);
+        UserBankDAO.create(cpf, bank, BigDecimal.ZERO);
 
         String message = "Conta vinculada com sucesso!";
 

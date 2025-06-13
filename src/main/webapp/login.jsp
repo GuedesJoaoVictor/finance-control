@@ -22,17 +22,17 @@
                 <h5 class="card-title text-center">Login</h5>
                 <form action="/finance-control/login" method="post">
                     <div class="d-flex justify-content-center align-items-center flex-column mt-4">
-                        <label for="email">Email:</label>
-                        <input type="text" name="email" id="email">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="text" name="email" id="email" class="form-control" style="width: 70%;" required>
                     </div>
                     <div class="d-flex justify-content-center align-items-center flex-column mt-4">
-                        <label for="password">Senha:</label>
-                        <input type="password" name="password" id="password">
+                        <label for="password" class="form-label">Senha:</label>
+                        <input type="password" name="password" id="password" class="form-control" style="width: 70%;" required>
                     </div>
                     <button class="mt-4 btn btn-primary" type="submit">Entrar</button>
                 </form>
                 <div>
-                    Não possui conta?
+                    Nao possui conta?
                     <a href="./index.jsp">Registrar</a>
                 </div>
             </div>

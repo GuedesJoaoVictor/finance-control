@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=ISO-8859-1" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page isELIgnored="false" %>
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -12,26 +13,31 @@
 
 <body>
 <c:if test="${not empty user}">
-    <h1>Olá ${user.getName()}!</h1>
-    <a href="/finance-control/logout">Sair</a>
-    <button>
-        <a href="/finance-control/vinculate-bank">Adicionar banco</a>
-    </button>
-    <p>Bem vindo ao controle de financas!</p>
-    <c:if test="${userBanks == []}">
-        <p>Você ainda não possui contas cadastradas.</p>
-    </c:if>
-    <c:if test="${userBanks != []}">
-        <h2>Suas contas:</h2>
-        <ul>
-            <c:forEach items="${userBanks}" var="bank">
-                <li>
-                    <a href="/finance-control/bank-info?userBankId=${bank.id}">${bank.name}</a> - ${bank.totalAmount}
-                    <button onclick="unlinkAccount(${bank.id})">Remover Conta</button>
-                </li>
-            </c:forEach>
-        </ul>
-    </c:if>
+    <div style="height: 100vh; width: 100vw;">
+        <div class="d-flex justify-content-end align-items-center m-4">
+            <a href="/finance-control/logout" class="btn btn-danger" style="width: 5%;">Sair</a>
+        </div>
+        <h1 class="text-center">Olá ${user.getName()}!</h1>
+        <div class="d-flex justify-content-center align-items-center flex-column mt-4">
+            <div class="w-100 text-end pe-4">
+                <a href="/finance-control/vinculate-bank" class="btn btn-primary m-4">Adicionar banco</a>
+            </div>
+            <h4>Bem vindo ao controle de financas!</h4>
+            <c:if test="${userBanks == []}">
+                <p class="alert alert-danger m-4">Você ainda não possui contas cadastradas.</p>
+            </c:if>
+            <c:if test="${userBanks != []}">
+                <h2 class="text-center">Suas contas:</h2>
+                    <c:forEach items="${userBanks}" var="bank">
+                        <div class="d-flex justify-content-between align-items-center m-2 p-2 border">
+                            <a href="/finance-control/bank-info?userBankId=${bank.id}" class="m-4">${bank.name}</a>
+                            <p class="m-4">${bank.totalAmount}</p>
+                            <button class="btn btn-danger m-4" onclick="unlinkAccount(${bank.id})">Remover Conta</button>
+                        </div>
+                    </c:forEach>
+            </c:if>
+        </div>
+    </div> 
 </c:if>
 </body>
 <script>
