@@ -10,11 +10,7 @@ create table revenues(id serial not null, user_cpf varchar(14) not null referenc
 
 create table expenses(id serial not null, user_cpf varchar(14) not null references users(cpf), description varchar(200), value numeric(15, 2) not null, expense_date date not null default current_date, category_id int not null references category(id), bank_id int not null references bank(id));
 
-insert into users(cpf, name, email, password) values ('05265295046', 'Guedes', 'guedes@email.com', '1234');
-
 insert into bank(name, type) values ('Banco do Brasil', 'Conta Corrente');
-
-insert into user_bank(name, user_cpf, bank_id, initial_balance) values ('Conta Corrente Banco do Brasil', '05265295046', 1, 1000.00);
 
 insert into bank(name, type) values ('NuBank', 'Conta Corrente'),
                                     ('Itaú', 'Conta Corrente'),
@@ -94,4 +90,4 @@ INSERT INTO expenses (user_cpf, description, value, expense_date, category_id, b
                                                                                        ('031.903.253-83', 'Delivery de comida', 210.75, '2025-04-25', 3, 1),
                                                                                        ('031.903.253-83', 'Combustível', 365.00, '2025-05-12', 4, 1);
 
--- alter table public.user_bank rename column initial_balance to total_amount;
+alter table public.user_bank rename column initial_balance to total_amount;
