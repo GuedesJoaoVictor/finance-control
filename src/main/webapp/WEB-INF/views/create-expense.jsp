@@ -37,7 +37,7 @@
             </select>
           </div>
           <div class="d-flex justify-content-center align-items-center flex-column m-2">
-            <label class="form-label" for="description">DescriÃ§Ã£o: </label>
+            <label class="form-label" for="description">Descrição: </label>
             <input class="form-control" type="text" name="description" id="description" required>
           </div>
           <input type="hidden" name="bankId" value="${bank.getId()}">
@@ -48,7 +48,7 @@
         </form>
       </div>
     </div>
-    <a class="btn btn-secondary m-4" href="/finance-control/home">Voltar</a>
+    <a class="btn btn-secondary m-4" href="/finance-control/bank-info?userBankId=${userBankId}">Voltar</a>
   </div>
 </div>
 
