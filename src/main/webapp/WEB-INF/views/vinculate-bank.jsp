@@ -24,7 +24,7 @@
                 <select name="bank" id="bank" class="form-select" required>
                     <option value="Banco do Brasil">Banco do Brasil</option>
                     <option value="NuBank">NuBank</option>
-                    <option value="Itaú">Itaú</option>
+                    <option value="Itaï¿½">Itaï¿½</option>
                     <option value="Santander">Santander</option>
                     <option value="Bradesco">Bradesco</option>
                     <option value="Caixa">Caixa</option>

@@ -11,25 +11,47 @@
 </head>
 
 <body>
-  <a href="/finance-control/logout">Sair</a>
-  <form method="post" action="/finance-control/expenses">
-    <label for="value">Valor: </label>
-    <input type="number" id="value" name="value" step="0.01" required>
-    <label for="date">Data: </label>
-    <input id="date" name="date" type="date" required>
-    <label for="category">Categoria: </label>
-    <select id="category" name="category">
-      <c:forEach items="${categories}" var="category">
-        <option value="${category.id}">${category.name}</option>
-      </c:forEach>
-    </select>
-    <label for="description">Descrição: </label>
-    <input type="text" name="description" id="description" required>
-    <input type="hidden" name="bankId" value="${bank.getId()}">
-    <input type="hidden" name="userBankId" value="${userBankId}">
-    <button type="submit">Enviar</button>
-</form>
-<a href="/finance-control/home">Voltar</a>
+<div style="width: 100vw; height: 100vh;">
+  <div class="d-flex justify-content-end align-items-center m-4">
+    <a href="/finance-control/logout" class="btn btn-danger" style="width: 5%;">Sair</a>
+  </div>
+  <div class="d-flex justify-content-center align-items-center flex-column mt-4">
+    <h2 class="text-center mt-4">Adicionar despesa</h2>
+    <div class="card p-4 mt-4">
+      <div class="card-body">
+        <form method="post" action="/finance-control/expenses">
+          <div class="d-flex justify-content-center align-items-center flex-column m-2">
+            <label class="form-label" for="value">Valor: </label>
+            <input class="form-control" type="number" id="value" name="value" step="0.01" required>
+          </div>
+          <div class="d-flex justify-content-center align-items-center flex-column m-2">
+            <label class="form-label" for="date">Data: </label>
+            <input class="form-control" id="date" name="date" type="date" required>
+          </div>
+          <div class="d-flex justify-content-center align-items-center flex-column m-2">
+            <label class="form-label" for="category">Categoria: </label>
+            <select class="form-select" id="category" name="category">
+              <c:forEach items="${categories}" var="category">
+                <option value="${category.id}">${category.name}</option>
+              </c:forEach>
+            </select>
+          </div>
+          <div class="d-flex justify-content-center align-items-center flex-column m-2">
+            <label class="form-label" for="description">DescriÃ§Ã£o: </label>
+            <input class="form-control" type="text" name="description" id="description" required>
+          </div>
+          <input type="hidden" name="bankId" value="${bank.getId()}">
+          <input type="hidden" name="userBankId" value="${userBankId}">
+          <div class="d-flex justify-content-center align-items-center flex-column m-2">
+            <button class="btn btn-primary" type="submit">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <a class="btn btn-secondary m-4" href="/finance-control/home">Voltar</a>
+  </div>
+</div>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </html>
