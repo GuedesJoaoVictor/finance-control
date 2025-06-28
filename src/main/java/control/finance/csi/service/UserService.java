@@ -6,37 +6,23 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.ui.Model;
 
 import java.io.IOException;
 
 public class UserService {
 
-    public void create(HttpServletRequest req, HttpServletResponse resp) {
-        String cpf = req.getParameter("cpf");
-        String name = req.getParameter("name");
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-
-        if (cpf == null || name == null || email == null || password == null) {
+    public String create(Model model, User user) {
+        if (user.getCpf() == null || user.getName() == null || user.getEmail() == null || user.getPassword() == null) {
             String message = "Todos os campos devem ser preenchidos!";
-            req.setAttribute("message", message);
-            RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
-            try {
-                rd.forward(req, resp);
-            } catch (ServletException | IOException e) {
-                System.out.println(e.getMessage());
-            }
+            model.addAttribute("message", message);
+            return "index";
         }
 
-        User user = UserDAO.create(new User(cpf, name, email, password));
+        User userDB = UserDAO.create(new User(user.getCpf(), user.getName(), user.getEmail(), user.getPassword()));
 
-        req.setAttribute("user", user);
-        RequestDispatcher rd = req.getRequestDispatcher("/login.jsp");
-        try {
-            rd.forward(req, resp);
-        } catch (ServletException | IOException e) {
-            System.out.println(e.getMessage());
-        }
+        model.addAttribute("user", userDB);
+        return "login";
     }
 
     public void findById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

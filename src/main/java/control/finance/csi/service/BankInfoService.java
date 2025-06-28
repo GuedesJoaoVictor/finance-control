@@ -10,40 +10,33 @@ import control.finance.csi.model.Revenues;
 import control.finance.csi.model.UserBank;
 import control.finance.csi.util.GetSessionAtributtes;
 import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 
 public class BankInfoService {
 
-    public void getBankInfo(HttpServletRequest req, HttpServletResponse resp) {
-        int userBankId = Integer.parseInt(req.getParameter("userBankId"));
+    public String getBankInfo(Model model, int userBankId) {
         UserBank current = UserBankDAO.findById(userBankId);
         Bank bank = BankDAO.findById(current.getBank_id());
         ArrayList<Expenses> expenses = getAllBankExpenses(current, bank);
         ArrayList<Revenues> revenues = getAllBankRevenues(current, bank);
 
         if (expenses.isEmpty()) {
-            req.setAttribute("expensesEmpty", "Nenhuma despesa foi registrada nessa conta!");
+            model.addAttribute("expensesEmpty", "Nenhuma despesa foi registrada nessa conta!");
         }
         if (revenues.isEmpty()) {
-            req.setAttribute("revenuesEmpty", "Nenhuma receita foi registrada nessa conta!");
+            model.addAttribute("revenuesEmpty", "Nenhuma receita foi registrada nessa conta!");
         }
 
-        req.setAttribute("bank", bank);
-        req.setAttribute("userBank", current);
-        req.setAttribute("expenses", expenses);
-        req.setAttribute("revenues", revenues);
+        model.addAttribute("userBank", current);
+        model.addAttribute("bank", bank);
+        model.addAttribute("expenses", expenses);
+        model.addAttribute("revenues", revenues);
 
-        GetSessionAtributtes.setAttributtes(req);
-        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/bank-info.jsp");
-        try {
-            rd.forward(req, resp);
-            return;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        GetSessionAtributtes.setAttributtes(model);
+
+        return "redirect:/views/bank-info";
     }
 
     private ArrayList<Expenses> getAllBankExpenses(UserBank current, Bank bank) {

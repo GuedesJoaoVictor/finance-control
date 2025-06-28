@@ -10,6 +10,7 @@ import control.finance.csi.util.GetSessionAtributtes;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.ui.Model;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -17,31 +18,16 @@ import java.util.ArrayList;
 
 public class VinculateBankService {
 
-    public void vinculateBank(HttpServletRequest req, HttpServletResponse resp) {
-        String cpf = req.getParameter("cpf");
-        String bank = req.getParameter("bank");
-
+    public String vinculateBank(Model model, String cpf, String bank) {
         if (cpf == null || bank == null) {
             String message = "Todos os campos devem ser preenchidos!";
-            req.setAttribute("message", message);
-            RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/vinculate-bank.jsp");
-            try {
-                rd.forward(req, resp);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-            return;
+            model.addAttribute("message", message);
+            return "redirect:/vinculate-bank";
         }
 
         if (userIsAlreadyLinked(cpf, bank)) {
-           req.setAttribute("message", "Conta já vinculada!");
-            RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/vinculate-bank.jsp");
-            try {
-                rd.forward(req, resp);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-            return;
+            model.addAttribute("message", "Conta já vinculada!");
+            return "redirect:/vinculate-bank";
         }
 
         // Vinculando o usuario ao banco no banco de dados
@@ -49,14 +35,9 @@ public class VinculateBankService {
 
         String message = "Conta vinculada com sucesso!";
 
-        GetSessionAtributtes.setAttributtes(req);
-        req.setAttribute("message", message);
-        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
-        try {
-            rd.forward(req, resp);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        GetSessionAtributtes.setAttributtes(model);
+        model.addAttribute("message", message);
+        return "redirect:/home";
     }
 
     private boolean userIsAlreadyLinked(String cpf, String bankName) {
@@ -75,19 +56,17 @@ public class VinculateBankService {
         return false;
     }
 
-    public void unvinculateBank(HttpServletRequest req, HttpServletResponse resp) {
+    public String unvinculateBank(Model model, int userBankId) {
         try {
-            int id = req.getParameter("id") == null ? 0 : Integer.parseInt(req.getParameter("id"));
-            UserBankDAO.delete(id);
+            UserBankDAO.delete(userBankId);
             String message = "Conta deletada com sucesso!";
-            GetSessionAtributtes.setAttributtes(req);
-            req.setAttribute("message", message);
-            RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
-            rd.forward(req, resp);
-            return;
+            model.addAttribute("message", message);
+            GetSessionAtributtes.setAttributtes(model);
+            return "redirect:/home";
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
+            return "redirect:/home";
         }
     }
 }

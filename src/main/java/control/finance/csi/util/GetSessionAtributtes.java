@@ -7,20 +7,18 @@ import control.finance.csi.model.Expenses;
 import control.finance.csi.model.Revenues;
 import control.finance.csi.model.User;
 import control.finance.csi.model.UserBank;
-import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.ui.Model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class GetSessionAtributtes {
-    public static HttpServletRequest setAttributtes(HttpServletRequest req) {
-        User user = (User) req.getSession().getAttribute("user");
+    public static void setAttributtes(Model model) {
+        User user = (User) model.getAttribute("user");
         ArrayList<UserBank> userBanks = UserBankDAO.findAllByCpf(user.getCpf());
         userBanks = updateUserBankTotalAmount(userBanks);
-        req.setAttribute("user", user);
-        req.setAttribute("userBanks", userBanks);
-        return req;
+        model.addAttribute("userBanks", userBanks);
     }
 
     private static ArrayList<UserBank> updateUserBankTotalAmount(ArrayList<UserBank> userBanks) {

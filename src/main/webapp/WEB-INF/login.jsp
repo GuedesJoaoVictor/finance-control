@@ -20,7 +20,7 @@
         <div class="card text-center" style="width: 30vw;">
             <div class="card-body">
                 <h5 class="card-title text-center">Login</h5>
-                <form action="/finance-control/login" method="post">
+                <form action="/login" method="post">
                     <div class="d-flex justify-content-center align-items-center flex-column mt-4">
                         <label for="email" class="form-label">Email:</label>
                         <input type="text" name="email" id="email" class="form-control" style="width: 70%;" required>
@@ -33,7 +33,7 @@
                 </form>
                 <div>
                     Nao possui conta?
-                    <a href="./index.jsp">Registrar</a>
+                    <a href="/">Registrar</a>
                 </div>
             </div>
         </div>

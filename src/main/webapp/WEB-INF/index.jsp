@@ -14,7 +14,7 @@
     <div class="card text-center" style="width: 30vw;">
         <div class="card-body">
             <h5 class="card-title text-center">Registrar</h5>
-            <form action="/finance-control/user" method="post">
+            <form action="/user" method="post">
                 <div class="d-flex justify-content-center align-items-center flex-column mt-4">
                     <label for="name" class="form-label">Nome: </label>
                     <input id="name" type="text" name="name" class="form-control" style="width: 70%;" required>
@@ -35,7 +35,7 @@
             </form>
             <div>
                 Já possui conta?
-                <a href="./login.jsp">Clique aqui.</a>
+                <a href="/login">Clique aqui.</a>
             </div>
         </div>
     </div>
