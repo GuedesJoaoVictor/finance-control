@@ -20,8 +20,8 @@ public class HomeController extends HttpServlet {
             return "redirect:/login";
         }
         model.addAttribute("user", session.getAttribute("user"));
-        GetSessionAtributtes.setAttributtes(model);
-        return "redirect:/views/home";
+        GetSessionAtributtes.setAttributtes(model, session);
+        return "views/home";
     }
 
 //    @Override

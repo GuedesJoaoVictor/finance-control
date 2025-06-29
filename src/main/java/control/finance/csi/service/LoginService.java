@@ -17,7 +17,7 @@ public class LoginService {
         if(user != null && user.getEmail().equals(email) && user.getPassword().equals(password)) {
             // Usuario autenticdo com sucesso
             session.setAttribute("user", user);
-            GetSessionAtributtes.setAttributtes(model);
+            GetSessionAtributtes.setAttributtes(model, session);
             return "redirect:/home";
         }
 

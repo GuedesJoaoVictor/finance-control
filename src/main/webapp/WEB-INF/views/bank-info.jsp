@@ -14,7 +14,7 @@
 <c:if test="${not empty user}">
     <div style="width: 100vw; height: 100vh;">
         <div class="d-flex justify-content-end align-items-center m-4">
-            <a href="/finance-control/logout" class="btn btn-danger" style="width: 5%;">Sair</a>
+            <a href="/logout" class="btn btn-danger" style="width: 5%;">Sair</a>
         </div>
 
         <div class="d-flex justify-content-center align-items-center flex-column" >

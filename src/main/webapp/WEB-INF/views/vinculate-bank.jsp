@@ -13,18 +13,18 @@
 <body>
 <div style="width: 100vw; height: 100vh;">
     <div class="d-flex justify-content-end align-items-center m-4">
-        <a href="/finance-control/logout" class="btn btn-danger" style="width: 5%;">Sair</a>
+        <a href="/logout" class="btn btn-danger" style="width: 5%;">Sair</a>
     </div>
     <h1 class="text-center">Vincular Banco</h1>
     <div class="d-flex justify-content-center align-items-center flex-column mt-4">
-        <form method="post" action="/finance-control/vinculate-bank">
+        <form method="post" action="/vinculate-bank">
             <h2>Bancos disponiveis:</h2>
             <div class="mt-4 d-flex justify-content-center align-items-center flex-column w-100">
                 <label for="bank" class="form-label">Bancos:</label>
                 <select name="bank" id="bank" class="form-select" required>
                     <option value="Banco do Brasil">Banco do Brasil</option>
                     <option value="NuBank">NuBank</option>
-                    <option value="Itaï¿½">Itaï¿½</option>
+                    <option value="Itaú">Itaú</option>
                     <option value="Santander">Santander</option>
                     <option value="Bradesco">Bradesco</option>
                     <option value="Caixa">Caixa</option>
@@ -33,7 +33,7 @@
                 <button type="submit" class="btn btn-primary mt-4">Enviar</button>
             </div>
         </form>
-        <a href="/finance-control/home" class="btn btn-secondary">Home</a>
+        <a href="/home" class="btn btn-secondary">Home</a>
         <c:if test="${not empty message}">
             <div>
                 <p class="alert alert-danger mt-4">${message}</p>

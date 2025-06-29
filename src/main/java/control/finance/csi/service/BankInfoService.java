@@ -10,13 +10,14 @@ import control.finance.csi.model.Revenues;
 import control.finance.csi.model.UserBank;
 import control.finance.csi.util.GetSessionAtributtes;
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 
 public class BankInfoService {
 
-    public String getBankInfo(Model model, int userBankId) {
+    public String getBankInfo(Model model, int userBankId, HttpSession session) {
         UserBank current = UserBankDAO.findById(userBankId);
         Bank bank = BankDAO.findById(current.getBank_id());
         ArrayList<Expenses> expenses = getAllBankExpenses(current, bank);
@@ -34,7 +35,7 @@ public class BankInfoService {
         model.addAttribute("expenses", expenses);
         model.addAttribute("revenues", revenues);
 
-        GetSessionAtributtes.setAttributtes(model);
+        GetSessionAtributtes.setAttributtes(model, session);
 
         return "redirect:/views/bank-info";
     }

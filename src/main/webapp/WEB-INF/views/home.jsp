@@ -20,7 +20,7 @@
         <h1 class="text-center">Olá ${user.getName()}!</h1>
         <div class="d-flex justify-content-center align-items-center flex-column mt-4">
             <div class="w-100 text-end pe-4">
-                <a href="/finance-control/vinculate-bank" class="btn btn-primary m-4">Adicionar banco</a>
+                <a href="/vinculate-bank" class="btn btn-primary m-4">Adicionar banco</a>
             </div>
             <h4>Bem vindo ao controle de financas!</h4>
             <c:if test="${userBanks == []}">

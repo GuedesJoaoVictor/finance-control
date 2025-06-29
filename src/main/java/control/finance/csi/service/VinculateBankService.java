@@ -10,6 +10,7 @@ import control.finance.csi.util.GetSessionAtributtes;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 
 import java.math.BigDecimal;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 public class VinculateBankService {
 
-    public String vinculateBank(Model model, String cpf, String bank) {
+    public String vinculateBank(Model model, String cpf, String bank, HttpSession session) {
         if (cpf == null || bank == null) {
             String message = "Todos os campos devem ser preenchidos!";
             model.addAttribute("message", message);
@@ -35,7 +36,7 @@ public class VinculateBankService {
 
         String message = "Conta vinculada com sucesso!";
 
-        GetSessionAtributtes.setAttributtes(model);
+        GetSessionAtributtes.setAttributtes(model, session);
         model.addAttribute("message", message);
         return "redirect:/home";
     }
@@ -56,12 +57,12 @@ public class VinculateBankService {
         return false;
     }
 
-    public String unvinculateBank(Model model, int userBankId) {
+    public String unvinculateBank(Model model, int userBankId, HttpSession session) {
         try {
             UserBankDAO.delete(userBankId);
             String message = "Conta deletada com sucesso!";
             model.addAttribute("message", message);
-            GetSessionAtributtes.setAttributtes(model);
+            GetSessionAtributtes.setAttributtes(model, session);
             return "redirect:/home";
         }
         catch (Exception e) {

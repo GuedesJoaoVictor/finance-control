@@ -2,6 +2,7 @@ package control.finance.csi.controller;
 
 import control.finance.csi.service.BankInfoService;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +17,11 @@ public class BankInfoController /* extends HttpServlet */ {
     private final BankInfoService bankInfoService = new BankInfoService();
 
     @GetMapping("/{id}")
-    public String bankInfo(Model model, @PathVariable("id") int id) {
-        if (model.getAttribute("user") == null) {
+    public String bankInfo(Model model, @PathVariable("id") int id, HttpSession session) {
+        if (session.getAttribute("user") == null) {
             return "redirect:/login";
         }
-        return bankInfoService.getBankInfo(model, id);
+        return bankInfoService.getBankInfo(model, id, session);
     }
 
 //    @Override
