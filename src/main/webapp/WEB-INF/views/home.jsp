@@ -30,7 +30,7 @@
                 <h2 class="text-center">Suas contas:</h2>
                     <c:forEach items="${userBanks}" var="bank">
                         <div class="d-flex justify-content-between align-items-center m-2 p-2 border">
-                            <a href="/finance-control/bank-info?userBankId=${bank.id}" class="m-4">${bank.name}</a>
+                            <a href="/bank-info/${bank.id}" class="m-4">${bank.name}</a>
                             <p class="m-4">${bank.totalAmount}</p>
                             <button class="btn btn-danger m-4" onclick="unlinkAccount(${bank.id})">Remover Conta</button>
                         </div>
@@ -43,14 +43,13 @@
 <script>
     function unlinkAccount(id) {
         if (confirm("Deseja realmente deletar esse banco?")) {
-            fetch("/finance-control/vinculate-bank", {
+            fetch("/vinculate-bank/" + id, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: "id=" + id
+                }
             }).then(response => {
-                location.replace("http://localhost:8080/finance-control/home");
+                location.replace("http://localhost:8080/home");
             });
         }
     }

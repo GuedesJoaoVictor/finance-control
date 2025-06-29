@@ -106,7 +106,7 @@
                     </c:if>
                 </table>
             </div>
-            <a class="btn btn-secondary" href="/finance-control/home">Home</a>
+            <a class="btn btn-secondary" href="/home">Home</a>
             </div>
         </div>
 

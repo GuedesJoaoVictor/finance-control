@@ -28,7 +28,7 @@ public class VinculateBankService {
 
         if (userIsAlreadyLinked(cpf, bank)) {
             model.addAttribute("message", "Conta já vinculada!");
-            return "redirect:/vinculate-bank";
+            return "views/vinculate-bank";
         }
 
         // Vinculando o usuario ao banco no banco de dados

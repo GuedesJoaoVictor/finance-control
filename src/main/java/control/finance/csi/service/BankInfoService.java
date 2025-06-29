@@ -37,7 +37,7 @@ public class BankInfoService {
 
         GetSessionAtributtes.setAttributtes(model, session);
 
-        return "redirect:/views/bank-info";
+        return "views/bank-info";
     }
 
     private ArrayList<Expenses> getAllBankExpenses(UserBank current, Bank bank) {
