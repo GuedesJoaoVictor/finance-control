@@ -48,7 +48,7 @@
         </form>
       </div>
     </div>
-    <a class="btn btn-secondary m-4" href="/finance-control/bank-info?userBankId=${userBankId}">Voltar</a>
+    <a class="btn btn-secondary m-4" href="/bank-info/${userBankId}">Voltar</a>
   </div>
 </div>
 

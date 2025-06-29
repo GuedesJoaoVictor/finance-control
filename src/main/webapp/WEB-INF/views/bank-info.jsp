@@ -22,7 +22,7 @@
                 <h2 class="text-center">${bank.getName()}</h2>
             </div>
             <h2 class="m-4">Receitas</h2>
-            <a class="btn btn-primary m-4" href="/finance-control/revenues?userBankId=${userBank.getId()}">Adicionar Receita</a>
+            <a class="btn btn-primary m-4" href="/revenues/${userBank.getId()}">Adicionar Receita</a>
             <div class="table-responsive m-4">
                 <table class="table table-bordered">
                     <thead>
@@ -65,7 +65,7 @@
             </div>
 
             <h2 class="m-4">Gastos</h2>
-            <a class="btn btn-primary m-4" href="/finance-control/expenses?userBankId=${userBank.getId()}">Adicionar Gasto</a>
+            <a class="btn btn-primary m-4" href="/expenses/${userBank.getId()}">Adicionar Gasto</a>
             <div class="table-responsive m-4">
                 <table class="table table-bordered">
                     <thead>
