@@ -5,8 +5,11 @@ import control.finance.csi.model.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.ui.Model;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,54 +17,41 @@ import java.util.Objects;
 
 public class ExpensesService {
 
-    public void redirectToExpenses(HttpServletRequest req, HttpServletResponse resp) {
-        int userBankId = Integer.parseInt(req.getParameter("userBankId"));
-        User user = (User) req.getSession().getAttribute("user");
+    public String redirectToExpenses(int userBankId, HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
         ArrayList<Category> categories = getAllCategoriesPerUser(user);
 
         UserBank userBank = UserBankDAO.findById(userBankId);
         Bank bank = BankDAO.findById(userBank.getBank_id());
 
-        req.setAttribute("userBankId", userBankId);
-        req.setAttribute("user", req.getSession().getAttribute("user"));
-        req.setAttribute("categories", categories);
-        req.setAttribute("bank", bank);
+        model.addAttribute("userBankId", userBankId);
+        model.addAttribute("user", user);
+        model.addAttribute("categories", categories);
+        model.addAttribute("bank", bank);
         // A principio apenas redirecionar para a pagina com as categorias
-        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/create-expense.jsp");
-        try {
-            rd.forward(req, resp);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        return "views/create-expense";
     }
 
-    public void createExpense(HttpServletRequest req, HttpServletResponse resp) {
-        BigDecimal value = BigDecimal.valueOf(Double.parseDouble(req.getParameter("value")));
-        int categoryId = Integer.parseInt(req.getParameter("category"));
-        String dateString = req.getParameter("date");
-        String description = req.getParameter("description");
-        int bankId = Integer.parseInt(req.getParameter("bankId"));
-        int userBankId = Integer.parseInt(req.getParameter("userBankId"));
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    public String createExpense(String valueStr, int categoryId, String dateString,
+            String description, int bankId, int userBankId, HttpSession session) throws ParseException {
 
-        Date date = null;
-        try {
-            date = sdf.parse(dateString);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            // Convert parameters
+            BigDecimal value = new BigDecimal(valueStr);
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+            User user = (User) session.getAttribute("user");
 
-        User user = (User) req.getSession().getAttribute("user");
+            // Create expense manually
+            Expenses expense = new Expenses(
+                    user.getCpf(),
+                    description,
+                    value,
+                    date,
+                    categoryId,
+                    bankId
+            );
 
-        Expenses expenses = new Expenses(user.getCpf(), description, value, date, categoryId, bankId);
-        ExpensesDAO.create(expenses);
-
-        try {
-            resp.sendRedirect(req.getContextPath() + "/bank-info?userBankId=" + userBankId);
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+            ExpensesDAO.create(expense);
+            return "redirect:/bank-info/" + userBankId;
     }
 
     public void deleteExpense(HttpServletRequest req, HttpServletResponse resp) {

@@ -19,18 +19,18 @@
     <h2 class="text-center mt-4">Adicionar despesa</h2>
     <div class="card p-4 mt-4">
       <div class="card-body">
-        <form method="post" action="/finance-control/expenses">
+        <form method="post" action="/expenses">
           <div class="d-flex justify-content-center align-items-center flex-column m-2">
             <label class="form-label" for="value">Valor: </label>
             <input class="form-control" type="number" id="value" name="value" step="0.01" required>
           </div>
           <div class="d-flex justify-content-center align-items-center flex-column m-2">
             <label class="form-label" for="date">Data: </label>
-            <input class="form-control" id="date" name="date" type="date" required>
+            <input class="form-control" id="expense_date" name="date" type="date" required>
           </div>
           <div class="d-flex justify-content-center align-items-center flex-column m-2">
             <label class="form-label" for="category">Categoria: </label>
-            <select class="form-select" id="category" name="category">
+            <select class="form-select" id="category" name="category_id">
               <c:forEach items="${categories}" var="category">
                 <option value="${category.id}">${category.name}</option>
               </c:forEach>
@@ -40,7 +40,7 @@
             <label class="form-label" for="description">Descrição: </label>
             <input class="form-control" type="text" name="description" id="description" required>
           </div>
-          <input type="hidden" name="bankId" value="${bank.getId()}">
+          <input type="hidden" name="bank_id" value="${bank.getId()}">
           <input type="hidden" name="userBankId" value="${userBankId}">
           <div class="d-flex justify-content-center align-items-center flex-column m-2">
             <button class="btn btn-primary" type="submit">Enviar</button>
