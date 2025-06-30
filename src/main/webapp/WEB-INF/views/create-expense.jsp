@@ -26,7 +26,7 @@
           </div>
           <div class="d-flex justify-content-center align-items-center flex-column m-2">
             <label class="form-label" for="date">Data: </label>
-            <input class="form-control" id="expense_date" name="date" type="date" required>
+            <input class="form-control" id="date" name="date" type="date" required>
           </div>
           <div class="d-flex justify-content-center align-items-center flex-column m-2">
             <label class="form-label" for="category">Categoria: </label>

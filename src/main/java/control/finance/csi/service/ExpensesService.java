@@ -35,12 +35,10 @@ public class ExpensesService {
     public String createExpense(String valueStr, int categoryId, String dateString,
             String description, int bankId, int userBankId, HttpSession session) throws ParseException {
 
-            // Convert parameters
             BigDecimal value = new BigDecimal(valueStr);
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
             User user = (User) session.getAttribute("user");
 
-            // Create expense manually
             Expenses expense = new Expenses(
                     user.getCpf(),
                     description,

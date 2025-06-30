@@ -10,12 +10,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 //@WebServlet("/revenues")
 @Controller
@@ -25,8 +23,10 @@ public class RevenuesController extends HttpServlet {
     private final RevenuesService revenuesService = new RevenuesService();
 
     @PostMapping
-    public String create(Revenues revenue, HttpSession session, int userBankId) {
-        return revenuesService.createRevenue(revenue, session, userBankId);
+    public String createExpense(@RequestParam("value") String valueStr, @RequestParam("category_id") int categoryId,
+                                @RequestParam("receipt_date") String dateString, @RequestParam("description") String description, @RequestParam("bank_id") int bankId,
+                                @RequestParam("userBankId") int userBankId, HttpSession session) throws ParseException {
+        return revenuesService.createRevenue(valueStr, categoryId, dateString, description, bankId, userBankId, session);
     }
 
     @GetMapping("/{userBankId}")

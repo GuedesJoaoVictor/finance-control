@@ -1,9 +1,6 @@
 package control.finance.csi.service;
 
-import control.finance.csi.dao.BankDAO;
-import control.finance.csi.dao.CategoryDAO;
-import control.finance.csi.dao.RevenuesDAO;
-import control.finance.csi.dao.UserBankDAO;
+import control.finance.csi.dao.*;
 import control.finance.csi.model.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,21 +32,26 @@ public class RevenuesService {
         return "views/create-revenue";
     }
 
-    public String createRevenue(Revenues revenue, HttpSession session, int userBankId) {
+    public String createRevenue(String valueStr, int categoryId, String dateString,
+        String description, int bankId, int userBankId, HttpSession session) throws ParseException {
 
+        BigDecimal value = new BigDecimal(valueStr);
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
         User user = (User) session.getAttribute("user");
 
-        Revenues revenues = new Revenues(user.getCpf(),
-                revenue.getDescription(),
-                revenue.getValue(),
-                revenue.getReceipt_date(),
-                revenue.getCategory_id(),
-                revenue.getBank_id());
+        Revenues revenue = new Revenues(
+                user.getCpf(),
+                description,
+                value,
+                date,
+                categoryId,
+                bankId
+        );
 
-        RevenuesDAO.create(revenues);
-
+        RevenuesDAO.create(revenue);
         return "redirect:/bank-info/" + userBankId;
     }
+
 
     public void deleteRevenue(HttpServletRequest req, HttpServletResponse resp) {
         int revenueId = Integer.parseInt(req.getParameter("id"));
