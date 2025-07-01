@@ -34,6 +34,11 @@ public class RevenuesController extends HttpServlet {
         return revenuesService.redirectToRevenues(model, userBankId, session);
     }
 
+    @GetMapping("/change-revenues/{userBankId}/{revenueId}")
+    public String changeRevenues(@PathVariable("userBankId") int userBankId, @PathVariable("revenueId") int revenueId, HttpSession session, Model model) {
+        return revenuesService.redirectEditRevenue(userBankId, revenueId, session, model);
+    }
+
 //    @Override
 //    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        revenuesService.createRevenue(req, resp);

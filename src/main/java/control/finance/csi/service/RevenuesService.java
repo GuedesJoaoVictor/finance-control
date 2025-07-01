@@ -69,29 +69,20 @@ public class RevenuesService {
         return categories;
     }
 
-    public void redirectEditRevenue(HttpServletRequest req, HttpServletResponse resp) {
-        int userBankId = Integer.parseInt(req.getParameter("userBankId"));
-        int revenueId = Integer.parseInt(req.getParameter("id"));
-
+    public String redirectEditRevenue(int userBankId, int revenueId, HttpSession session, Model model) {
         Revenues revenue = RevenuesDAO.findById(revenueId);
-        User user = (User) req.getSession().getAttribute("user");
+        User user = (User) session.getAttribute("user");
         UserBank userBank = UserBankDAO.findById(userBankId);
         Bank bank = BankDAO.findById(userBank.getBank_id());
         ArrayList<Category> categories = getAllCategoriesPerUser(user);
 
-        req.setAttribute("revenue", revenue);
-        req.setAttribute("revenueId", revenueId);
-        req.setAttribute("userBankId", userBankId);
-        req.setAttribute("bank", bank);
-        req.setAttribute("categories", categories);
+        model.addAttribute("revenue", revenue);
+        model.addAttribute("revenueId", revenueId);
+        model.addAttribute("userBankId", userBankId);
+        model.addAttribute("bank", bank);
+        model.addAttribute("categories", categories);
 
-        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/edit-revenue.jsp");
-        try {
-            rd.forward(req, resp);
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        return "views/edit-revenue";
     }
 
     public void updateRevenue(HttpServletRequest req, HttpServletResponse resp) {

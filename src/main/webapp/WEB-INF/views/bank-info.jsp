@@ -118,37 +118,35 @@
 <script>
     function onClickDeleteRevenue(id) {
         if (confirm("Realmente deseja remover essa receita?")) {
-            fetch("/finance-control/revenues", {
+            fetch("/revenues/" + id, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
-                body: "id=" + id
             }).then(response => {
-                location.replace("http://localhost:8080/finance-control/bank-info?userBankId=" + "${userBank.getId()}");
+                location.replace("http://localhost:8080/bank-info/" + "${userBank.getId()}");
             })
         }
     }
     function onClickDeleteExpense(id) {
         if (confirm("Realmente deseja remover esse gasto?")) {
-            fetch("/finance-control/expenses", {
+            fetch("/expenses/" + id, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
-                body: "id=" + id
             }).then(response => {
-                location.replace("http://localhost:8080/finance-control/bank-info?userBankId=" + "${userBank.getId()}");
+                location.replace("http://localhost:8080/bank-info/" + "${userBank.getId()}");
             })
         }
     }
 
     function onClickRedirectToEditExpense(id) {
-        window.location.href = "/finance-control/change-expenses?userBankId=${userBank.getId()}&id=" + id;
+        window.location.href = "/expenses/change-expenses/${userBank.getId()}/" + id;
     }
 
     function onClickRedirectToEditRevenue(id) {
-        window.location.href = "/finance-control/change-revenues?userBankId=${userBank.getId()}&id=" + id;
+        window.location.href = "/revenues/change-revenues/${userBank.getId()}/" + id;
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>

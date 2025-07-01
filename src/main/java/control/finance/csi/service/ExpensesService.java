@@ -52,9 +52,7 @@ public class ExpensesService {
             return "redirect:/bank-info/" + userBankId;
     }
 
-    public void deleteExpense(HttpServletRequest req, HttpServletResponse resp) {
-        int expenseId = Integer.parseInt(req.getParameter("id"));
-
+    public void deleteExpense(int expenseId) {
         ExpensesDAO.deleteById(expenseId);
     }
 
@@ -68,29 +66,20 @@ public class ExpensesService {
         return categories;
     }
 
-    public void redirectEditExpense(HttpServletRequest req, HttpServletResponse resp) {
-        int userBankId = Integer.parseInt(req.getParameter("userBankId"));
-        int expenseId = Integer.parseInt(req.getParameter("id"));
-
+    public String redirectEditExpense(int userBankId, int expenseId, HttpSession session, Model model) {
         Expenses expense = ExpensesDAO.findById(expenseId);
-        User user = (User) req.getSession().getAttribute("user");
+        User user = (User) session.getAttribute("user");
         UserBank userBank = UserBankDAO.findById(userBankId);
         Bank bank = BankDAO.findById(userBank.getBank_id());
         ArrayList<Category> categories = getAllCategoriesPerUser(user);
 
-        req.setAttribute("expense", expense);
-        req.setAttribute("userBankId", userBankId);
-        req.setAttribute("expenseId", expenseId);
-        req.setAttribute("bank", bank);
-        req.setAttribute("categories", categories);
+        model.addAttribute("expense", expense);
+        model.addAttribute("userBankId", userBankId);
+        model.addAttribute("expenseId", expenseId);
+        model.addAttribute("bank", bank);
+        model.addAttribute("categories", categories);
 
-        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/edit-expense.jsp");
-        try {
-            rd.forward(req, resp);
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        return "views/edit-expense";
     }
 
     public void updateExpense(HttpServletRequest req, HttpServletResponse resp) {

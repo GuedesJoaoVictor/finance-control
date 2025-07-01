@@ -2,17 +2,10 @@ package control.finance.csi.controller;
 
 import control.finance.csi.model.User;
 import control.finance.csi.service.UserService;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.io.IOException;
 
 //@WebServlet("/user")
 @Controller
