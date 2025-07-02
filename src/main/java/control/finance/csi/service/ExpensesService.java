@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class ExpensesService {
@@ -82,41 +83,20 @@ public class ExpensesService {
         return "views/edit-expense";
     }
 
-    public void updateExpense(HttpServletRequest req, HttpServletResponse resp) {
-        int expenseId = Integer.parseInt(req.getParameter("expenseId"));
-        int userBankId = Integer.parseInt(req.getParameter("userBankId"));
-        BigDecimal value = BigDecimal.valueOf(Double.parseDouble(req.getParameter("value")));
-        String dateString = req.getParameter("date");
-        String description = req.getParameter("description");
-        int categoryId = Integer.parseInt(req.getParameter("category"));
+    public String updateExpense(int expenseId, String valueStr, int category_id, String dateString,
+                              String description, int userBankId, HttpSession session) throws ParseException {
 
-        System.out.println(expenseId);
-        System.out.println(userBankId);
-        System.out.println(value);
-        System.out.println(description);
-        System.out.println(categoryId);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = sdf.parse(dateString);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        System.out.println(List.of(valueStr, category_id, dateString, description, userBankId, valueStr));
+        BigDecimal value = new BigDecimal(valueStr);
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+        User user = (User) session.getAttribute("user");
         UserBank userBank = UserBankDAO.findById(userBankId);
         Bank bank = BankDAO.findById(userBank.getBank_id());
-        User user = (User) req.getSession().getAttribute("user");
-        Expenses expense = new Expenses(user.getCpf(), description, value, date, categoryId, bank.getId());
+        Expenses expense = new Expenses(user.getCpf(), description, value, date, category_id, bank.getId());
         expense.setId(expenseId);
 
         ExpensesDAO.update(expense);
 
-        try {
-            resp.sendRedirect(req.getContextPath() + "/bank-info?userBankId=" + userBankId);
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        return "redirect:/bank-info/" + userBankId;
     }
 }

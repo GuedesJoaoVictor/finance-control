@@ -30,7 +30,7 @@
                     </div>
                     <div class="d-flex flex-column m-2">
                         <label class="form-label" for="category">Categoria: </label>
-                        <select class="form-select" id="category" name="category">
+                        <select class="form-select" id="category" name="category_id">
                             <c:forEach items="${categories}" var="category">
                                 <option value="${category.id}">${category.name}</option>
                             </c:forEach>
@@ -43,17 +43,17 @@
                     <input type="hidden" name="expenseId" value="${expense.id}">
                     <input type="hidden" name="userBankId" value="${userBankId}">
                     <div class="d-flex justify-content-center m-2">
-                        <button class="btn btn-primary" type="button" onclick="submitPutForm()">Enviar</button>
+                        <button class="btn btn-primary" type="button" onclick="submitPutForm(${expense.id})">Enviar</button>
                     </div>
                 </form>
             </div>
         </div>
-        <a class="btn btn-secondary m-4" href="/finance-control/bank-info?userBankId=${userBankId}">Voltar</a>
+        <a class="btn btn-secondary m-4" href="/bank-info/${userBankId}">Voltar</a>
     </div>
 </div>
 
 <script>
-    function submitPutForm() {
+    function submitPutForm(id) {
         const form = document.getElementById("expenseForm");
         const formData = new FormData(form);
         const params = new URLSearchParams();
@@ -61,12 +61,12 @@
             params.append(key, value);
         }
 
-        fetch('/finance-control/expenses', {
+        fetch('/expenses/' + id, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: params
         }).then(response => {
-            window.location.href = "/finance-control/bank-info?userBankId=${userBankId}";
+            window.location.href = "/bank-info/${userBankId}";
         });
     }
 </script>

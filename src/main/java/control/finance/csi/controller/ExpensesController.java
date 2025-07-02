@@ -37,6 +37,13 @@ public class ExpensesController extends HttpServlet {
         return expensesService.createExpense(valueStr, categoryId, dateString, description, bankId, userBankId, session);
     }
 
+    @PutMapping("/{expenseId}")
+    public String updateExpense(@PathVariable("expenseId") int expenseId, @RequestParam("value") String valueStr,
+           @RequestParam("category_id") int category_id, @RequestParam("date") String dateString, @RequestParam("description") String description,
+           @RequestParam("userBankId") int userBankId, HttpSession session) throws ParseException {
+        return expensesService.updateExpense(expenseId, valueStr, category_id, dateString, description, userBankId, session);
+    }
+
     @DeleteMapping("/{expenseId}")
     public void deleteExpense(@PathVariable("expenseId") int expenseId) {
         expensesService.deleteExpense(expenseId);
@@ -57,8 +64,8 @@ public class ExpensesController extends HttpServlet {
 //        expensesService.deleteExpense(req, resp);
 //    }
 
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        expensesService.updateExpense(req, resp);
-    }
+//    @Override
+//    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        expensesService.updateExpense(req, resp);
+//    }
 }
