@@ -16,9 +16,6 @@ public class HomeController extends HttpServlet {
 
     @GetMapping
     public String home(Model model, HttpSession session) {
-        if(session.getAttribute("user") == null) {
-            return "redirect:/login";
-        }
         model.addAttribute("user", session.getAttribute("user"));
         GetSessionAtributtes.setAttributtes(model, session);
         return "views/home";

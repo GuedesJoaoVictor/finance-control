@@ -39,6 +39,18 @@ public class RevenuesController extends HttpServlet {
         return revenuesService.redirectEditRevenue(userBankId, revenueId, session, model);
     }
 
+    @PutMapping("/{revenueId}")
+    public String updateExpense(@PathVariable("revenueId") int revenueId, @RequestParam("value") String valueStr,
+                                @RequestParam("category_id") int category_id, @RequestParam("date") String dateString, @RequestParam("description") String description,
+                                @RequestParam("userBankId") int userBankId, HttpSession session) throws ParseException {
+        return revenuesService.updateRevenue(revenueId, valueStr, category_id, dateString, description, userBankId, session);
+    }
+
+    @DeleteMapping("/{revenueId}")
+    public void deleteExpense(@PathVariable("revenueId") int revenueId) {
+        revenuesService.deleteRevenue(revenueId);
+    }
+
 //    @Override
 //    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        revenuesService.createRevenue(req, resp);
@@ -49,13 +61,13 @@ public class RevenuesController extends HttpServlet {
 //        revenuesService.redirectToRevenues(req, resp);
 //    }
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        revenuesService.deleteRevenue(req, resp);
-    }
+//    @Override
+//    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        revenuesService.deleteRevenue(req, resp);
+//    }
 
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        revenuesService.updateRevenue(req, resp);
-    }
+//    @Override
+//    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        revenuesService.updateRevenue(req, resp);
+//    }
 }

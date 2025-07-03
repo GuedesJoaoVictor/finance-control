@@ -53,9 +53,7 @@ public class RevenuesService {
     }
 
 
-    public void deleteRevenue(HttpServletRequest req, HttpServletResponse resp) {
-        int revenueId = Integer.parseInt(req.getParameter("id"));
-
+    public void deleteRevenue(int revenueId) {
         RevenuesDAO.deleteById(revenueId);
     }
 
@@ -85,35 +83,19 @@ public class RevenuesService {
         return "views/edit-revenue";
     }
 
-    public void updateRevenue(HttpServletRequest req, HttpServletResponse resp) {
-        int revenueId = Integer.parseInt(req.getParameter("revenueId"));
-        int userBankId = Integer.parseInt(req.getParameter("userBankId"));
-        BigDecimal value = BigDecimal.valueOf(Double.parseDouble(req.getParameter("value")));
-        String dateString = req.getParameter("date");
-        String description = req.getParameter("description");
-        int categoryId = Integer.parseInt(req.getParameter("category"));
+    public String updateRevenue(int revenueId, String valueStr, int category_id, String dateString,
+        String description, int userBankId, HttpSession session) throws ParseException {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = sdf.parse(dateString);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        BigDecimal value = new BigDecimal(valueStr);
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
         UserBank userBank = UserBankDAO.findById(userBankId);
         Bank bank = BankDAO.findById(userBank.getBank_id());
-        User user = (User) req.getSession().getAttribute("user");
-        Revenues revenue = new Revenues(user.getCpf(), description, value, date, categoryId, bank.getId());
+        User user = (User) session.getAttribute("user");
+        Revenues revenue = new Revenues(user.getCpf(), description, value, date, category_id, bank.getId());
         revenue.setId(revenueId);
 
         RevenuesDAO.update(revenue);
 
-        try {
-            resp.sendRedirect(req.getContextPath() + "/bank-info?userBankId=" + userBankId);
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        return "redirect:/bank-info/" + userBankId;
     }
 }

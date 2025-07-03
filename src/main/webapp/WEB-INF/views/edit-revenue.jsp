@@ -66,7 +66,7 @@
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: params
         }).then(response => {
-            window.location.href = "/finance-control/bank-info?userBankId=${userBankId}";
+            window.location.href = "/bank-info/${userBankId}";
         });
     }
 </script>
